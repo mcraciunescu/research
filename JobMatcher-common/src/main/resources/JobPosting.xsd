@@ -1,0 +1,51 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="jobPosting">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element type="xs:string" name="datePosted"/>
+        <xs:element type="xs:string" name="description"/>
+        <xs:element type="xs:string" name="educationRequirements"/>
+        <xs:element type="xs:string" name="employmentType"/>
+        <xs:element type="xs:string" name="experienceRequirements"/>
+        <xs:element name="hiringOrganization">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="logo"/>
+              <xs:element type="xs:string" name="name"/>
+              <xs:element type="xs:string" name="url"/>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="type"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:string" name="image"/>
+        <xs:element type="xs:string" name="industry"/>
+        <xs:element type="xs:string" name="jobBenefits"/>
+        <xs:element name="jobLocation">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="address">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element type="xs:string" name="addressLocality"/>
+                    <xs:element type="xs:string" name="addressRegion"/>
+                  </xs:sequence>
+                  <xs:attribute type="xs:string" name="type"/>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+            <xs:attribute type="xs:string" name="type"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element type="xs:string" name="occupationalCategory"/>
+        <xs:element type="xs:byte" name="qualifications"/>
+        <xs:element type="xs:string" name="responsibilities"/>
+        <xs:element type="xs:string" name="skills"/>
+        <xs:element type="xs:string" name="title"/>
+        <xs:element type="xs:string" name="url"/>
+        <xs:element type="xs:byte" name="workHours"/>
+      </xs:sequence>
+      <xs:attribute type="xs:anyURI" name="context"/>
+      <xs:attribute type="xs:string" name="type"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

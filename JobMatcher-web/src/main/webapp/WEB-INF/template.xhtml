@@ -1,0 +1,58 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Job Matcher</title>
+    </h:head>
+
+    <h:body>
+
+        <div id="top" class="top">		
+        <h:form>		
+            <p:messages id="messages" showDetail="true" globalOnly="true" autoUpdate="true" closable="true" />		
+        </h:form>		
+        </div>
+        <div id="top" class="top">
+            <h:form>      
+                <p:menubar> 
+                    <p:menuitem value="Welcome back, #{userSessionBean.user.name}"/>
+                    <p:menuitem style="position: absolute; right: 6px;" value="Logout" icon="ui-icon-extlink"  actionListener="#{userSessionBean.logout}"/>                    
+                </p:menubar>              
+            </h:form>
+        </div>
+        
+        <div>
+            <table>
+            <tr>
+                <td valign="top">
+                    <h:form>                    
+                        <p:menu style="size: 30px">
+                            <p:submenu label="Cv">
+                                <p:menuitem value="My Cv" outcome="cv"/>
+                            </p:submenu>
+                            <p:submenu label="Jobs">
+                                <p:menuitem value="Recommendations" outcome="recommendations"/>
+                                <p:menuitem value="All jobs" outcome="jobs"/>
+                            </p:submenu>
+                        </p:menu>
+                    </h:form>
+                </td>
+                <td valign="top">
+                    <!--<h:form style="margin-left: 16px; margin-right: 200px">-->
+                        <ui:insert name="content">
+
+                        </ui:insert>
+                    <!--</h:form>-->
+                </td>
+            </tr>
+            </table>
+        </div>
+        
+    </h:body>
+
+</html>

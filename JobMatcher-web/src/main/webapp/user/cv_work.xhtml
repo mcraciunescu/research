@@ -1,0 +1,56 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+        
+
+    <h:body>
+        <ui:composition template="./../WEB-INF/template.xhtml">
+            <ui:define name="content">                
+                <h:form style="margin-left: 20px">
+                    <p:panel id="personal" header="Personal information">
+                        <h:panelGrid title="Personal details" columns="2" columnClasses="column" cellpadding="5">
+                            <!--first name-->
+                            <h:outputLabel for="firstName" value="First Name:" />
+                            <p:inplace id="firstName" editor="true">
+                                <p:inputText value="#{cvBean.cv.firstName}" required="false" label="text" />
+                            </p:inplace>
+
+                            <!--last name-->
+                            <h:outputLabel for="lastName" value="Last Name:" />
+                            <p:inplace id="firstName" editor="true">
+                                <p:inputText value="#{cvBean.cv.lastName}" required="false" label="text" />
+                            </p:inplace>
+
+                            <!--contact no-->
+                            <h:outputLabel for="contactNo" value="Contact No:" />
+                            <p:inplace id="contactNo" editor="true">
+                                <p:inputText value="#{cvBean.cv.contactNo}" required="false" label="text" />
+                            </p:inplace>
+
+                            <!--email-->
+                            <h:outputLabel for="email" value="E-mail:" />
+                            <p:inplace id="email" editor="true">
+                                <p:inputText value="#{cvBean.cv.email}" required="false" label="text" />
+                            </p:inplace>
+                        </h:panelGrid>
+                    </p:panel>
+                    
+                    <p:panel id="address" header="Personal information">
+                        <h:panelGrid title="Address" columns="2" columnClasses="column" cellpadding="5">
+                            <!--first name-->
+                            <h:outputLabel for="city" value="City:" />
+                            <p:inplace id="city" editor="true">
+                                <p:inputText value="#{cvBean.cv.address.city}" required="false  " label="text" />
+                            </p:inplace>
+                        </h:panelGrid>
+                    </p:panel>
+                </h:form>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

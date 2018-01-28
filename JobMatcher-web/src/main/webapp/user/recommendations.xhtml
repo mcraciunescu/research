@@ -1,0 +1,37 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+        
+
+    <h:body>
+        <ui:composition template="./../WEB-INF/template.xhtml">
+            <ui:define name="content">                
+                <h:form>
+
+                    <p:dataTable style="border-width: 0" var="jobSummary" value="#{jobRecommenderBean.jobSummaries}" rows="10"
+                                         paginator="true"
+                                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                         rowsPerPageTemplate="5,10,15">
+                        <p:column>                            
+                            <h:outputText value="#{jobSummary.title}"/>
+                        </p:column>
+                        
+                        <p:column>
+                            <h:outputText value="#{jobSummary.company}" />
+                            
+                            <p:commandLink action="#{jobRecommenderBean.view(jobSummary.id)}"
+                                title="View Job Details" 
+                                styleClass="ui-icon ui-icon-search"
+                                style="float:right;margin-left:50px"/>
+                        </p:column>
+
+                    </p:dataTable>
+                </h:form> 
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

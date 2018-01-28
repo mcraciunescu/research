@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Job Matcher - Registration page</title>
+    </h:head>
+    
+    <h:body>          
+        <h:form style="margin-top: 200px; margin-left: 600px; margin-right: 300px">
+            <p:panel id="panel" header="Registration page">
+
+                <h:panelGrid columns="3" cellpadding="5">
+                    <p:outputLabel for="username" value="Username:" />
+                    <p:inputText id="username" value="#{registrationBean.username}" required="true" label="Username">
+                        <f:validateLength minimum="3" />
+                    </p:inputText>
+                    <p:message for="username" display="icon" />
+
+                    <p:outputLabel for="password" value="Password:" />
+                    <p:password id="password" value="#{registrationBean.password}" label="Password" required="true">
+                        <f:validateLength minimum="6" />
+                        <p:ajax update="msgPass" event="keyup" />
+                    </p:password>
+                    <p:message for="password" id="msgPass" display="icon" />
+
+                    <p:outputLabel for="passwordVerified" value="Password:" />
+                    <p:password id="passwordVerified" value="#{registrationBean.passwordVerified}" label="Password" required="true">
+                        <f:validateLength minimum="6" />
+                        <p:ajax update="msgPassVerified" event="keyup" />
+                    </p:password>
+                    <p:message for="passwordVerified" id="msgPassVerified" display="icon" />
+
+                </h:panelGrid>
+
+                <p:commandButton value="Register" update="panel" action="#{registrationBean.register}" icon="ui-icon-check" />
+                <p:spacer width="50" height="20" />
+            </p:panel>
+        </h:form>
+    </h:body>
+</html>
