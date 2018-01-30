@@ -15,6 +15,7 @@ import edu.marius.graph.entity.JobPosting;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.regex.Pattern;
@@ -121,6 +122,9 @@ public class JobDescriptionMapper {
     }
 
     private List<String> toList(String text) {
+        if (text == null) {
+            return Collections.emptyList();
+        }
         if (text.contains("•")) {
             return Arrays.asList(DOT_PATTERN.split(text));
         }

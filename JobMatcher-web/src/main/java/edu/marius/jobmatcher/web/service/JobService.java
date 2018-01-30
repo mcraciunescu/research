@@ -10,6 +10,7 @@ import edu.marius.graph.entity.JobSummary;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.core.GenericType;
@@ -20,6 +21,7 @@ import javax.ws.rs.core.MediaType;
  * @author Marius
  */
 @Singleton
+@Startup
 public class JobService {
 
     private static final String GET_JOB_SUMMARIES_URL = "http://localhost:8080/get/jobs";

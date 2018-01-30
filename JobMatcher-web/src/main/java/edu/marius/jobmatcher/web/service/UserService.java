@@ -8,6 +8,7 @@ package edu.marius.jobmatcher.web.service;
 import edu.marius.graph.entity.UserType;
 import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
+import javax.ejb.Startup;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -18,6 +19,7 @@ import javax.ws.rs.core.MediaType;
  * @author Marius
  */
 @Singleton
+@Startup
 public class UserService {
 
     private static final String GET_USER_URL = "http://localhost:8080/get/user";

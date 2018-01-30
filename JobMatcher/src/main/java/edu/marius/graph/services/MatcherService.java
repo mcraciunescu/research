@@ -8,7 +8,9 @@ package edu.marius.graph.services;
 import edu.marius.graph.domain.cv.Cv;
 import edu.marius.graph.domain.job.JobDescription;
 import edu.marius.graph.entity.JobSummary;
+import edu.marius.graph.matchers.JobDescriptionComparator;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +36,9 @@ public class MatcherService {
     @Autowired
     JobSummaryService jobSummaryService;
 
+    @Autowired
+    JobDescriptionComparator jdComparator;
+
     public List<JobSummary> getMatchingJobsSummaries(Long cvId) {
         return this.getMatchingJobs(cvId)
                 .stream()
@@ -43,12 +48,13 @@ public class MatcherService {
 
     public List<JobDescription> getMatchingJobs(Long cvId) {
         Assert.notNull(cvId, "Id must be not null.");
-        Cv p = cvService.findById(cvId);
-        List<String> industries = getCvIndustries(p);
+        Cv cv = cvService.findById(cvId);
+        List<String> industries = getCvIndustries(cv);
         industries.addAll(getSynonymIndustries(industries));
         List<JobDescription> candidates = new ArrayList<>();
         industries.forEach(i -> candidates.addAll(getJobsByIndustry(i)));
-        return candidates;
+        //return candidates;
+        return jdComparator.sort(candidates, cv);
     }
 
     private List<String> getSynonymIndustries(List<String> industries) {

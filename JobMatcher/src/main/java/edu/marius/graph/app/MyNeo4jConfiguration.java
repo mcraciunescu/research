@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @Import(RepositoryRestMvcConfiguration.class)
 @EnableScheduling
 @EnableAutoConfiguration
-@ComponentScan(basePackages = {"edu.marius.graph.services", "edu.marius.graph.mappers"})
+@ComponentScan(basePackages = {"edu.marius.graph.services", "edu.marius.graph.mappers", "edu.marius.graph.matchers"})
 @Configuration
 @EnableNeo4jRepositories(basePackages = "edu.marius.graph.repositories")
 public class MyNeo4jConfiguration extends Neo4jConfiguration {
@@ -39,9 +39,10 @@ public class MyNeo4jConfiguration extends Neo4jConfiguration {
         return new SessionFactory(
                 getConfiguration(),
                 new String[]{
-                    "edu.marius.graph.domain.cv",
-                    "edu.marius.graph.domain.job",
-                    "edu.marius.graph.domain.user"
+                    //"edu.marius.graph.domain.cv",
+                    //"edu.marius.graph.domain.job",
+                    //"edu.marius.graph.domain.user",
+                    "edu.marius.graph.domain"
                 });
     }
 }

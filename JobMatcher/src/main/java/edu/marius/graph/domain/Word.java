@@ -5,13 +5,28 @@
  */
 package edu.marius.graph.domain;
 
+import org.neo4j.ogm.annotation.GraphId;
+import org.neo4j.ogm.annotation.NodeEntity;
+
 /**
  *
  * @author Marius
  */
+@NodeEntity
 public class Word {
 
+    @GraphId
+    private Long id;
+
     private String key;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getKey() {
         return key;

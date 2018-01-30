@@ -114,7 +114,7 @@ public class Main extends WebMvcConfigurerAdapter {
     }
 
     @RequestMapping(value = "/get/user", method = RequestMethod.GET, produces = APPLICATION_JSON)
-    public UserType create(@RequestParam(value = "name") String name) {
+    public UserType getUser(@RequestParam(value = "name") String name) {
         return userMapper.map(userService.findByName(name));
     }
 

@@ -7,13 +7,14 @@ package edu.marius.jobmatcher.web.beans;
 
 import edu.marius.graph.entity.JobSummary;
 import edu.marius.jobmatcher.web.service.JobService;
+import edu.marius.jobmatcher.web.service.JobSummaryCacheService;
 import static edu.marius.jobmatcher.web.util.JsfUtils.getSession;
 import static edu.marius.jobmatcher.web.util.JsfUtils.redirect;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.enterprise.context.SessionScoped;
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Named;
 
 /**
@@ -21,17 +22,17 @@ import javax.inject.Named;
  * @author Marius
  */
 @Named("jobSummaryBean")
-@SessionScoped
+@ApplicationScoped
 public class JobSummaryBean implements Serializable {
-
-    @EJB
-    private JobService jobService;
 
     private List<JobSummary> jobSummaries;
 
+    @EJB
+    private JobSummaryCacheService jobSummaryService;
+
     @PostConstruct
     public void init() {
-        this.jobSummaries = jobService.getJobSummaries();
+        this.jobSummaries = jobSummaryService.getJobSummaries();
     }
 
     public void view(Long id) {

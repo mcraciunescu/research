@@ -5,6 +5,7 @@
  */
 package edu.marius.graph.services;
 
+import edu.marius.graph.domain.Word;
 import edu.marius.graph.repositories.WordRepository;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -25,12 +26,15 @@ public class WordService {
     private WordRepository wordRepository;
 
     public List<String> getSynonyms(String word) {
-        Iterable words = wordRepository.getFirstDegreeSynonyms(word);
+        Iterable<Word> words = wordRepository.getFirstDegreeSynonyms(word);
         List<String> synomyms = new ArrayList<>();
-        Iterator it = words.iterator();
-        while (it.hasNext()) {
-            synomyms.addAll(((Map) it.next()).values());
+        for (Word w : words) {
+            synomyms.add(w.getKey());
         }
+        //        Iterator it = words.iterator();
+        //        while (it.hasNext()) {
+        //            synomyms.addAll(((Map) it.next()).values());
+        //        }
 
         return synomyms;
     }

@@ -59,15 +59,14 @@ public class WebCrawlerService {
 
         try {
             doCrawl(domain, Integer.parseInt(startPage), Integer.parseInt(pages), count);
-        } catch (NumberFormatException | IOException | JAXBException | ParseException ex) {
+        } catch (NumberFormatException | IOException | JAXBException ex) {
             Logger.getLogger(WebCrawlerService.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
         return true;
     }
 
-    private void doCrawl(String domain, int startPage, int pages, int limit) throws IOException, JAXBException,
-            ParseException {
+    private void doCrawl(String domain, int startPage, int pages, int limit) throws IOException, JAXBException {
         Document webPage;
         final Unmarshaller unmarshaller = jsonUnmarshaller();
         int cnt = 0;
@@ -85,6 +84,12 @@ public class WebCrawlerService {
                 }
                 final String jobURL = job.getElementsByAttributeValue("itemprop", "url").attr("href");
 
+                try {
+                    Thread.sleep(150);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(WebCrawlerService.class.getName()).log(Level.SEVERE, null, ex);
+                    Thread.currentThread().interrupt();
+                }
                 final Document jobPage = Jsoup.connect(hipoURL + jobURL).get();
                 LOG.log(Level.INFO, "Connected to {}", hipoURL + jobURL);
 
@@ -94,12 +99,15 @@ public class WebCrawlerService {
                         .trim();
                 final StreamSource json = new StreamSource(new StringReader(jsonString));
 
-                final JobPosting jobPosting = unmarshaller.unmarshal(json, JobPosting.class).getValue();
-                LOG.log(Level.INFO, "Got job description \n {}", jobPosting);
-
-                final JobDescription jd = mapper.map(jobPosting);
-                jobDescriptionService.create(jd);
-
+                try {
+                    final JobPosting jobPosting = unmarshaller.unmarshal(json, JobPosting.class).getValue();
+                    LOG.log(Level.INFO, "Got job description \n {}", jobPosting);
+                    System.out.println("Got new job!");
+                    final JobDescription jd = mapper.map(jobPosting);
+                    jobDescriptionService.create(jd);
+                } catch (ParseException | JAXBException t) {
+                    LOG.log(Level.SEVERE, "failed unmarshalling", t);
+                }
 //                if (++cnt > limit) {
 //                    LOG.log(Level.INFO, "Limit {} reached. Count = {}. Exiting", new Object[]{limit, cnt});
 //                    return;
