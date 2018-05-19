@@ -6,7 +6,6 @@
 package edu.marius.jobmatcher.web.beans;
 
 import edu.marius.graph.entity.CvType;
-import edu.marius.graph.entity.UserType;
 import edu.marius.jobmatcher.web.service.UserService;
 import edu.marius.jobmatcher.web.util.JsfUtils;
 import javax.ejb.EJB;
@@ -28,7 +27,7 @@ public class CvBean {
     private Long cvId;
 
     public void assignCv() {
-        userService.assignCvToUser(JsfUtils.getUser());
+        userService.assignCvToUser(JsfUtils.getUser().get());
     }
 
     public Long getCvId() {

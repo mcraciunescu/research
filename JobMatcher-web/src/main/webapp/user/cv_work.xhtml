@@ -11,43 +11,117 @@
         <ui:composition template="./../WEB-INF/template.xhtml">
             <ui:define name="content">                
                 <h:form style="margin-left: 20px">
+                    <!-- Personal information -->
                     <p:panel id="personal" header="Personal information">
-                        <h:panelGrid title="Personal details" columns="2" columnClasses="column" cellpadding="5">
+                        <h:panelGrid title="Personal details" columns="3" columnClasses="column" cellpadding="5">
                             <!--first name-->
                             <h:outputLabel for="firstName" value="First Name:" />
                             <p:inplace id="firstName" editor="true">
-                                <p:inputText value="#{cvBean.cv.firstName}" required="false" label="text" />
+                                <p:inputText value="#{cv.firstName}" required="false" label="text" />
                             </p:inplace>
 
                             <!--last name-->
                             <h:outputLabel for="lastName" value="Last Name:" />
-                            <p:inplace id="firstName" editor="true">
-                                <p:inputText value="#{cvBean.cv.lastName}" required="false" label="text" />
+                            <p:inplace id="lastName" editor="true">
+                                <p:inputText value="#{cv.lastName}" required="false" label="text" />
                             </p:inplace>
 
                             <!--contact no-->
-                            <h:outputLabel for="contactNo" value="Contact No:" />
+                            <h:outputLabel for="contactNo" value="Phone:" />
                             <p:inplace id="contactNo" editor="true">
-                                <p:inputText value="#{cvBean.cv.contactNo}" required="false" label="text" />
+                                <p:inputText value="#{cv.contactNo}" required="false" label="text" />
                             </p:inplace>
 
                             <!--email-->
                             <h:outputLabel for="email" value="E-mail:" />
                             <p:inplace id="email" editor="true">
-                                <p:inputText value="#{cvBean.cv.email}" required="false" label="text" />
+                                <p:inputText value="#{cv.email}" required="false" label="text" />
                             </p:inplace>
                         </h:panelGrid>
                     </p:panel>
                     
-                    <p:panel id="address" header="Personal information">
-                        <h:panelGrid title="Address" columns="2" columnClasses="column" cellpadding="5">
-                            <!--first name-->
+                    <!-- Address -->
+                    <p:panel id="address" header="Address">
+                        <h:panelGrid title="Address" columns="3" columnClasses="column" cellpadding="5">
+                            <!--city-->
                             <h:outputLabel for="city" value="City:" />
                             <p:inplace id="city" editor="true">
-                                <p:inputText value="#{cvBean.cv.address.city}" required="false  " label="text" />
+                                <p:inputText value="#{cv.address.city}" required="false" label="text" />
+                            </p:inplace>
+
+                            <!--state-->
+                            <h:outputLabel for="state" value="State:" />
+                            <p:inplace id="state" editor="true">
+                                <p:inputText value="#{cv.address.state}" required="false" label="text" />
+                            </p:inplace>
+                            
+                            <!--zip-->
+                            <h:outputLabel for="zip" value="Zip:" />
+                            <p:inplace id="zip" editor="true">
+                                <p:inputText value="#{cv.address.zip}" required="false" label="text" />
                             </p:inplace>
                         </h:panelGrid>
                     </p:panel>
+                    
+                     <!-- Professional experience -->
+                    <p:dataGrid var="job" value="#{cv.experience.job}" columns="1" layout="grid" paginator="false" id="experiece" style="text-align:left">
+                        <f:facet name="header">Professional experience</f:facet>                        
+                        <p:panel header="#{job.title}" style="text-align:left">
+                            <h:panelGrid columns="1" style="width:100%">
+                                <h:outputText value="#{job.company}" />
+                                <h:outputText value="#{job.startDate} - #{job.endDate}" />   
+                                <h:outputText value="#{job.country}" />    
+                                <h:outputText value="#{job.description}" />    
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:dataGrid>
+                     
+                     <!-- Projects -->
+                     <p:dataGrid var="project" value="#{cv.projects.project}" columns="1" layout="grid" paginator="false" id="projects" style="text-align:left">
+                        <f:facet name="header">Projects</f:facet>                        
+                        <p:panel header="#{project.title}" style="text-align:left">
+                            <h:panelGrid columns="1" style="width:100%">
+                                <h:outputText value="#{project.startDate} - #{job.endDate}" />   
+                                <h:outputText value="#{project.description}" />    
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:dataGrid>
+                   
+                    <!-- Education -->
+                    <p:dataGrid var="education" value="#{cv.education.educationEntry}" columns="1" layout="grid" paginator="false" id="education" style="text-align:left">
+                        <f:facet name="header">Education</f:facet>                        
+                        <p:panel header="#{education.institution}" style="text-align:left">
+                            <h:panelGrid columns="1" style="width:100%">
+                                <h:outputText value="#{education.title}, #{education.grade}" />
+                                <h:outputText value="#{job.startDate} - #{job.endDate}" />   
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:dataGrid>
+                    
+                    <!-- Courses -->
+                    <p:dataGrid var="course" value="#{cv.courses.course}" columns="1" layout="grid" paginator="false" id="courses" style="text-align:left">
+                        <f:facet name="header">Courses</f:facet>                        
+                        <p:panel header="#{course.institution}" style="text-align:left">
+                            <h:panelGrid columns="1" style="width:100%">
+                                <h:outputText value="#{education.title}" />
+                                <h:outputText value="#{job.startDate} - #{job.endDate}" />   
+                            </h:panelGrid>
+                        </p:panel>
+                    </p:dataGrid>
+                    
+                    <!-- Languages -->
+                    <p:dataGrid var="language" value="#{cv.languages.language}" columns="1" layout="grid" paginator="false" id="languages" style="text-align:left">
+                        <f:facet name="header">Languages</f:facet>                        
+                        <h:outputText value="#{language}" />
+                    </p:dataGrid>
+                    
+                    <!-- Skills -->
+                    <p:dataGrid var="skill" value="#{cv.skills.skill}" columns="1" layout="grid" paginator="false" id="skills" style="text-align:left">
+                        <f:facet name="header">Skills</f:facet>                        
+                        <h:outputText value="#{skill}" />
+                    </p:dataGrid>
+                      
+                    <p:commandButton value="Save Changes" action="#{updateBean.updateCv(cv, user.id, user.cvId)}" icon="ui-icon-check" />
                 </h:form>
             </ui:define>
         </ui:composition>

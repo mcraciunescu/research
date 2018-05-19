@@ -6,6 +6,7 @@
 package edu.marius.jobmatcher.web.beans;
 
 import edu.marius.graph.entity.UserType;
+import edu.marius.jobmatcher.web.service.CvService;
 import edu.marius.jobmatcher.web.service.UserService;
 import edu.marius.jobmatcher.web.util.JsfUtils;
 import javax.ejb.EJB;
@@ -24,6 +25,9 @@ public class LoginBean {
     @EJB
     UserService userService;
 
+    @EJB
+    CvService cvService;
+
     private String username;
     private String password;
 
@@ -35,6 +39,7 @@ public class LoginBean {
         if (user != null) {
             HttpSession session = JsfUtils.getSession();
             session.setAttribute("user", user);
+            session.setAttribute("cv", cvService.getCv(user.getCvId()));
             return "user/cv.xhtml";
         } else {
             //JSFUtil.addMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Wrong credentials");

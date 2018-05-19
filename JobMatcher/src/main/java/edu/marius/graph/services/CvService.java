@@ -17,24 +17,28 @@ import edu.marius.graph.repositories.CvRepository;
 @Service
 @Transactional
 public class CvService {
-
-  @Autowired
-  private CvRepository repository;
-
-  public Cv create(Cv cv) {
-    return repository.save(cv);
-  }
-
-  public void delete(Cv cv) {
-    repository.delete(cv);
-  }
-
-  public Cv findById(long id) {
-    return repository.findOne(id);
-  }
-
-  public Iterable<Cv> findAll() {
-    return repository.findAll();
-  }
-
+    
+    @Autowired
+    private CvRepository repository;
+    
+    public Cv create(Cv cv) {
+        return repository.save(cv);
+    }
+    
+    public void delete(Cv cv) {
+        repository.delete(cv);
+    }
+    
+    public void deleteById(long id) {
+        repository.delete(id);
+    }
+    
+    public Cv findById(long id) {
+        return repository.findOne(id);
+    }
+    
+    public Iterable<Cv> findAll() {
+        return repository.findAll();
+    }
+    
 }

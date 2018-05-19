@@ -28,12 +28,15 @@ public class JobSummaryCacheService {
     public void init() {
         System.out.println("Loading jobs..");
         long start = System.currentTimeMillis();
-        this.jobSummaries = jobService.getJobSummaries();
+        //this.jobSummaries = jobService.getJobSummaries();
         long duration = System.currentTimeMillis() - start;
         System.out.println("Loading jobs took: " + duration + " ms.");
     }
 
     public List<JobSummary> getJobSummaries() {
+        if (jobSummaries == null) {
+            this.jobSummaries = jobService.getJobSummaries();
+        }
         return jobSummaries;
     }
 

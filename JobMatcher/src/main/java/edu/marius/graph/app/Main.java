@@ -27,6 +27,7 @@ import edu.marius.graph.services.JobSummaryService;
 import edu.marius.graph.services.UserService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -94,6 +95,16 @@ public class Main extends WebMvcConfigurerAdapter {
         Cv p = cvMapper.map(cvType);
         cvService.create(p);
         return "success";
+    }
+
+    @RequestMapping(value = "/update/cv", method = RequestMethod.POST, consumes = APPLICATION_JSON, produces = APPLICATION_JSON)
+    @Transactional
+    public Long updateCv(@RequestBody CvType cvType, @RequestParam(value = "userId") Long userId, @RequestParam(value = "cvId") Long cvId) {
+        Cv cv = cvMapper.map(cvType);
+        Long newCvId = cvService.create(cv).getId();
+        userService.assignCvIdToUser(userId, newCvId);
+        cvService.deleteById(cvId);
+        return newCvId;
     }
 
     @RequestMapping(value = "/create/user", method = RequestMethod.POST,

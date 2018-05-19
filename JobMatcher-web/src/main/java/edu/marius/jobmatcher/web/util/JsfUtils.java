@@ -5,8 +5,10 @@
  */
 package edu.marius.jobmatcher.web.util;
 
+import edu.marius.graph.entity.CvType;
 import edu.marius.graph.entity.UserType;
 import java.io.IOException;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -33,12 +35,20 @@ public class JsfUtils {
         }
     }
 
-    public static UserType getUser() {
+    public static Optional<UserType> getUser() {
         HttpSession session = getSession();
         if (session != null) {
-            return (UserType) session.getAttribute("user");
+            return Optional.ofNullable((UserType) session.getAttribute("user"));
         }
-        return null;
+        return Optional.empty();
+    }
+
+    public static Optional<CvType> getCv() {
+        HttpSession session = getSession();
+        if (session != null) {
+            return Optional.ofNullable((CvType) session.getAttribute("cv"));
+        }
+        return Optional.empty();
     }
 
     public static HttpSession getSession() {

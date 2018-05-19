@@ -27,7 +27,7 @@ public class UserSessionBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        user = JsfUtils.getUser();
+        user = JsfUtils.getUser().orElse(null);
     }
 
     public UserType getUser() {

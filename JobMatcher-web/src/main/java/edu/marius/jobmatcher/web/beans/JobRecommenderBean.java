@@ -35,7 +35,7 @@ public class JobRecommenderBean implements Serializable {
 
     @PostConstruct
     public void init() {
-        userType = JsfUtils.getUser();
+        userType = JsfUtils.getUser().get();
         this.jobSummaries = jobService.getMatchingJobs(userType.getCvId());
     }
 
