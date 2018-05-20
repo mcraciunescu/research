@@ -11,6 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 
 import java.io.IOException;
 import edu.marius.graph.domain.cv.Cv;
+import edu.marius.graph.domain.user.User;
 import edu.marius.graph.entity.CvType;
 import edu.marius.graph.entity.JobPosting;
 import edu.marius.graph.entity.JobSummary;
@@ -113,7 +114,9 @@ public class Main extends WebMvcConfigurerAdapter {
         if (userService.findByName(userType.getName()) != null) {
             return "failure";
         }
-        userService.create(userMapper.map(userType));
+        User u = userMapper.map(userType);
+        u.setCvId(cvService.create(new Cv()).getId());
+        userService.create(u);
         return "success";
     }
 

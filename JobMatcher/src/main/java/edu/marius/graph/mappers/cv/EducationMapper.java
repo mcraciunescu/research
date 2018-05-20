@@ -42,8 +42,12 @@ public class EducationMapper {
         edType.setInstitution(ed.getInstitution());
         edType.setGrade(ed.getGrade().floatValue());
         edType.setTitle(ed.getTitle());
-        edType.setStartDate(sdf.get().format(ed.getStartDate()));
-        edType.setEndDate(sdf.get().format(ed.getEndDate()));
+        if (ed.getStartDate() != null) {
+            edType.setStartDate(sdf.get().format(ed.getStartDate()));
+        }
+        if (ed.getEndDate() != null) {
+            edType.setEndDate(sdf.get().format(ed.getEndDate()));
+        }
         return edType;
     }
 }

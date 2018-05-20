@@ -17,7 +17,7 @@
             <p:messages id="messages" showDetail="true" globalOnly="true" autoUpdate="true" closable="true" />		
         </h:form>		
         </div>
-        <div id="top" class="top">
+        <div id="top" class="top" style="margin-left: 2px">
             <h:form>      
                 <p:menubar> 
                     <p:menuitem value="Welcome back, #{userSessionBean.user.name}"/>
@@ -31,7 +31,7 @@
             <tr>
                 <td valign="top">
                     <h:form>                    
-                        <p:menu style="size: 30px">
+                        <p:menu style="size: 30px; top: 5px; left: 0px">
                             <p:submenu label="Cv">
                                 <p:menuitem value="My Cv" outcome="cv"/>
                                 <p:menuitem value="My Cv - work" outcome="cv_work"/>
@@ -44,11 +44,9 @@
                     </h:form>
                 </td>
                 <td valign="top">
-                    <!--<h:form style="margin-left: 16px; margin-right: 200px">-->
                         <ui:insert name="content">
 
                         </ui:insert>
-                    <!--</h:form>-->
                 </td>
             </tr>
             </table>

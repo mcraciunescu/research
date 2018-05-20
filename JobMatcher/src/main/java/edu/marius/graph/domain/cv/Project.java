@@ -5,6 +5,8 @@
  */
 package edu.marius.graph.domain.cv;
 
+import java.util.Date;
+import javax.xml.bind.annotation.XmlElement;
 import org.neo4j.ogm.annotation.GraphId;
 import org.neo4j.ogm.annotation.NodeEntity;
 
@@ -13,15 +15,15 @@ import org.neo4j.ogm.annotation.NodeEntity;
  * @author Marius
  */
 @NodeEntity
-public class Course {
+public class Project {
 
     @GraphId
     private Long id;
 
-    private String title;
-    private String institution;
-    private String startDate;
-    private String endDate;
+    protected String title;
+    protected String description;
+    protected Date startDate;
+    protected Date endDate;
 
     public Long getId() {
         return id;
@@ -39,27 +41,27 @@ public class Course {
         this.title = title;
     }
 
-    public String getInstitution() {
-        return institution;
+    public String getDescription() {
+        return description;
     }
 
-    public void setInstitution(String institution) {
-        this.institution = institution;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 

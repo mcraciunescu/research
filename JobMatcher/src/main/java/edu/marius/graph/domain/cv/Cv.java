@@ -27,6 +27,9 @@ public class Cv {
     @Relationship(type = "PARTICIPATED_AT")
     private List<Course> courses;
 
+    @Relationship(type = "DEVELOPED")
+    private List<Project> projects;
+
     @Relationship(type = "KNOWS")
     private List<Skill> skills;
 
@@ -122,6 +125,14 @@ public class Cv {
 
     public void setCourses(List<Course> courses) {
         this.courses = courses;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
     }
 
     public List<Language> getLanguages() {

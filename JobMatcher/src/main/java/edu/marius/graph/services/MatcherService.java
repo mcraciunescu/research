@@ -10,6 +10,7 @@ import edu.marius.graph.domain.job.JobDescription;
 import edu.marius.graph.entity.JobSummary;
 import edu.marius.graph.matchers.JobDescriptionComparator;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -66,6 +67,9 @@ public class MatcherService {
     }
 
     private List<String> getCvIndustries(Cv cv) {
+        if (cv.getJobs() == null) {
+            return Collections.emptyList();
+        }
         return cv.getJobs()
                 .stream()
                 .map(job -> job.getIndustry())

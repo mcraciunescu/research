@@ -10,95 +10,148 @@
     <h:body>
         <ui:composition template="./../WEB-INF/template.xhtml">
             <ui:define name="content">                
-                <h:form id="cvForm" style="margin-left: 20px">
+                <h:form id="cvForm" style="margin-left: 5px; margin-top: 5px">
                     <!-- Personal information -->
-                    <p:panel id="personal" header="Personal information">
-                        <h:panelGrid title="Personal details" columns="3" columnClasses="column" cellpadding="5">
+                    <p:panel id="personal" header="Personal information" style="min-width: 300px; text-align: center">
+                        <h:panelGrid title="Personal details" columns="3" columnClasses="column" cellpadding="5" style="min-width: 300px">
                             <!--first name-->
                             <h:outputLabel for="firstName" value="First Name:" />
                             <p:inplace id="firstName" editor="true">
-                                <p:inputText value="#{cv.firstName}" required="false" label="text" />
+                                <p:inputText value="#{cv.firstName}" placeholder="First name..." required="false" label="text" />
                             </p:inplace>
 
                             <!--last name-->
                             <h:outputLabel for="lastName" value="Last Name:" />
                             <p:inplace id="lastName" editor="true">
-                                <p:inputText value="#{cv.lastName}" required="false" label="text" />
+                                <p:inputText value="#{cv.lastName}" placeholder="Last name..." required="false" label="text" />
                             </p:inplace>
 
                             <!--contact no-->
                             <h:outputLabel for="contactNo" value="Phone:" />
                             <p:inplace id="contactNo" editor="true">
-                                <p:inputText value="#{cv.contactNo}" required="false" label="text" />
+                                <p:inputText value="#{cv.contactNo}" placeholder="Contact no..." required="false" label="text" />
                             </p:inplace>
 
                             <!--email-->
                             <h:outputLabel for="email" value="E-mail:" />
                             <p:inplace id="email" editor="true">
-                                <p:inputText value="#{cv.email}" required="false" label="text" />
+                                <p:inputText value="#{cv.email}" placeholder="E-mail..." required="false" label="text" />
                             </p:inplace>
                         </h:panelGrid>
                     </p:panel>
                     
                     <!-- Address -->
-                    <p:panel id="address" header="Address">
-                        <h:panelGrid title="Address" columns="3" columnClasses="column" cellpadding="5">
+                    <p:panel id="address" header="Address" style="min-width: 300px; text-align: center">
+                        <h:panelGrid title="Address" columns="3" cellpadding="5" style="min-width: 300px">
                             <!--city-->
-                            <h:outputLabel for="city" value="City:" />
+                            <h:outputLabel value="City:" />
                             <p:inplace id="city" editor="true">
-                                <p:inputText value="#{cv.address.city}" required="false" label="text" />
+                                <p:inputText id="cityText" value="#{cv.address.city}" required="true" label="text" />
                             </p:inplace>
+                            <p:watermark for="cityText" value="City..." id="cityWatermark" />                            
 
                             <!--state-->
                             <h:outputLabel for="state" value="State:" />
                             <p:inplace id="state" editor="true">
-                                <p:inputText value="#{cv.address.state}" required="false" label="text" />
+                                <p:inputText id="stateText" value="#{cv.address.state}" required="true" label="text" />
                             </p:inplace>
                             
                             <!--zip-->
                             <h:outputLabel for="zip" value="Zip:" />
                             <p:inplace id="zip" editor="true">
-                                <p:inputText value="#{cv.address.zip}" required="false" label="text" />
+                                <p:inputText  id="zipText" value="#{cv.address.zip}" required="true" label="text" />
                             </p:inplace>
                         </h:panelGrid>
                     </p:panel>
                     
                      <!-- Professional experience -->
-                    <p:dataGrid var="job" value="#{cv.experience.job}" columns="1" layout="grid" paginator="false" id="experiece" style="text-align:left">
-                        <f:facet name="header">Professional experience</f:facet>                        
-                        <p:panel header="#{job.title}" style="text-align:left">
-                            <h:panelGrid columns="1" style="width:100%">
-                                <h:outputText value="#{job.company}" />
-                                <h:outputText value="#{job.startDate} - #{job.endDate}" />   
-                                <h:outputText value="#{job.country}" />    
-                                <h:outputText value="#{job.description}" />    
-                            </h:panelGrid>
-                        </p:panel>
+                    <p:dataGrid var="job" value="#{cv.experience.job}" columns="1" layout="grid" paginator="false" id="experience" style="min-width: 300px" >
+                        <f:facet name="header">
+                            <span>
+                                <h:outputText value="Professional experience"/>
+                            </span>
+                            <span style="float: right">
+                                <p:commandButton title="Add a job" icon="ui-icon-plusthick" onclick="PF('addJobDialog').show();" style="opacity: 0.4; width: 20px; height: 20px;"/>
+                            </span>
+                        </f:facet>                        
+                        <div>
+                            <span>
+                                <h:outputText value="#{job.title}" style="font-size: 18px; font-weight: bold"/>
+                            </span>
+                            <span style="float: right">
+                                <p:commandButton title="Delete" icon="ui-icon-close" action="#{jobUpdaterBean.removeJob(job)}" update="experience" style="opacity: 0.4; width: 20px; height: 20px;">
+                                        <p:confirm header="Confirmation" message="Do you really want to delete this job?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </span>
+                        </div>
+                        <div>
+                            <h:outputText value="#{job.company}, #{job.country}" />
+                        </div>
+                        <div>
+                             <h:outputText value="#{job.startDate} - #{job.endDate}" />
+                        </div>
+                        <div>
+                             <h:outputText value="#{job.description}" />
+                        </div>
+                        <p:separator/>
                     </p:dataGrid>
                      
                      <!-- Projects -->
                      <p:dataGrid var="project" value="#{cv.projects.project}" columns="1" layout="grid" paginator="false" id="projects" style="text-align:left">
-                        <f:facet name="header">Projects</f:facet>                        
-                        <p:panel header="#{project.title}" style="text-align:left">
-                            <h:panelGrid columns="1" style="width:100%">
-                                <h:outputText value="#{project.startDate} - #{job.endDate}" />   
-                                <h:outputText value="#{project.description}" />    
-                            </h:panelGrid>
-                        </p:panel>
+                        <f:facet name="header">
+                            <span>
+                                <h:outputText value="Projects"/>
+                            </span>
+                            <span style="float: right">
+                                <p:commandButton title="Add project" icon="ui-icon-plusthick" onclick="PF('addProjectDialog').show();" style="opacity: 0.4; width: 20px; height: 20px;"/>
+                            </span>
+                        </f:facet>
+                        <div>
+                            <span>
+                                <h:outputText value="#{project.title}" style="font-size: 18px; font-weight: bold"/>
+                            </span>
+                            <span style="float: right">
+                                <p:commandButton title="Delete" icon="ui-icon-close" action="#{projectUpdaterBean.removeProject(project)}" update="projects" style="opacity: 0.4; width: 20px; height: 20px;">
+                                        <p:confirm header="Confirmation" message="Do you really want to delete this education entry?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </span>
+                        </div>                        
+                        <div>
+                            <h:outputText value="#{project.startDate} - #{project.endDate}" />
+                        </div>
+                         <div>
+                            <h:outputText value="#{project.description}" />
+                        </div>
+                        <p:separator/>
                     </p:dataGrid>
                    
                     <!-- Education -->
                     <p:dataGrid var="education" value="#{cv.education.educationEntry}" columns="1" layout="grid" paginator="false" id="education" style="text-align:left">
-                        <f:facet name="header">Education</f:facet>                        
-                        <p:panel header="#{education.institution}" style="text-align:left">
-                            <p:commandButton title="Delete" icon="ui-icon-close" action="#{updateBean.removeEducationEntry(education)}" update="education">
-                                <p:confirm header="Confirmation" message="Do you really want to delete this education entry?" icon="ui-icon-alert" />
-                            </p:commandButton>
-                            <h:panelGrid columns="1" style="width:100%">
-                                <h:outputText value="#{education.title}, #{education.grade}" />
-                                <h:outputText value="#{job.startDate} - #{job.endDate}" />   
-                            </h:panelGrid>
-                        </p:panel>
+                        <f:facet name="header">
+                            <span>
+                                <h:outputText value="Education"/>
+                            </span>
+                            <span style="float: right">
+                                <p:commandButton title="Add education" icon="ui-icon-plusthick" onclick="PF('addEducationDialog').show();" style="opacity: 0.4; width: 20px; height: 20px;"/>
+                            </span>
+                        </f:facet>
+                        <div>
+                            <span>
+                                <h:outputText value="#{education.institution}" style="font-size: 18px; font-weight: bold"/>
+                            </span>
+                            <span style="float: right">
+                                <p:commandButton title="Delete" icon="ui-icon-close" action="#{educationUpdaterBean.removeEducationEntry(education)}" update="education" style="opacity: 0.4; width: 20px; height: 20px;">
+                                        <p:confirm header="Confirmation" message="Do you really want to delete this education entry?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </span>
+                        </div>
+                        <div>
+                            <h:outputText value="#{education.title}, #{education.grade}" />
+                        </div>
+                        <div>
+                             <h:outputText value="#{education.startDate} - #{education.endDate}" />
+                        </div>
+                        <p:separator/>
                     </p:dataGrid>
                     
                     <!-- Courses -->
@@ -110,23 +163,24 @@
                             <span style="float: right">
                                 <p:commandButton title="Add course" icon="ui-icon-plusthick" onclick="PF('addCourseDialog').show();" style="opacity: 0.4; width: 20px; height: 20px;"/>
                             </span>
-                        </f:facet>                        
-                        <p:panel>
-                            <f:facet name="courseInstitution">
-                                <span>
-                                    <h:outputText value="#{course.institution}" style="float: right"/>
-                                </span>
-                                <span style="float: right">
-                                    <p:commandButton title="Delete" icon="ui-icon-close" action="#{courseUpdaterBean.removeCourse(course)}" update="courses" style="opacity: 0.4; width: 20px; height: 20px;">
-                                            <p:confirm header="Confirmation" message="Do you really want to delete this course?" icon="ui-icon-alert" />
-                                    </p:commandButton>
-                                </span>
-                            </f:facet>
-                            <h:panelGrid columns="1" style="width:100%">
-                                <h:outputText value="#{course.title}" />
-                                <h:outputText value="#{course.startDate} - #{course.endDate}" />   
-                            </h:panelGrid>
-                        </p:panel>
+                        </f:facet>
+                        <div>
+                            <span>
+                                <h:outputText value="#{course.institution}" style="font-size: 18px; font-weight: bold"/>
+                            </span>
+                            <span style="float: right">
+                                <p:commandButton title="Delete" icon="ui-icon-close" action="#{courseUpdaterBean.removeCourse(course)}" update="courses" style="opacity: 0.4; width: 20px; height: 20px;">
+                                        <p:confirm header="Confirmation" message="Do you really want to delete this course?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </span>
+                        </div>
+                        <div>
+                            <h:outputText value="#{course.title}" />
+                        </div>
+                        <div>
+                             <h:outputText value="#{course.startDate} - #{course.endDate}" />
+                        </div>
+                        <p:separator/>
                     </p:dataGrid>
                     
                     <!-- Languages -->
@@ -179,6 +233,63 @@
                         <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                     </p:confirmDialog>
+                </h:form>
+                
+                <!-- Add job form-->
+                <h:form id="addJobForm">
+                    <p:dialog header="Add a job" widgetVar="addJobDialog" minHeight="40">
+                        <h:panelGrid id="addJobPanel" columns="2" cellpadding="5">
+                            <p:outputLabel for="title" value="Title:" />
+                            <p:inputText id="title" value="#{jobUpdaterBean.title}" required="true"/>
+                            <p:outputLabel for="company" value="Company:" />
+                            <p:inputText id="company" value="#{jobUpdaterBean.company}" required="true"/>
+                            <p:outputLabel for="industry" value="Industry:" />
+                            <p:inputText id="industry" value="#{jobUpdaterBean.industry}" required="true"/>
+                            <p:outputLabel for="country" value="Country:" />
+                            <p:inputText id="country" value="#{jobUpdaterBean.country}" required="true"/>
+                            <p:outputLabel for="startDate" value="Start date:" />
+                            <p:inputText id="startDate" value="#{jobUpdaterBean.startDate}" required="true"/>
+                            <p:outputLabel for="endDate" value="End Date" />
+                            <p:inputText id="endDate" value="#{jobUpdaterBean.endDate}" required="true"/>
+                            <p:commandButton value="Add" action="#{jobUpdaterBean.addJob()}" icon="ui-icon-check" update="cvForm:experience" oncomplete="PF('addJobDialog').hide();"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                     
+                <!-- Add project form-->
+                <h:form id="addProjectForm">
+                    <p:dialog header="Add project" widgetVar="addProjectDialog" minHeight="40">
+                        <h:panelGrid id="addProjectPanel" columns="2" cellpadding="5">
+                            <p:outputLabel for="title" value="Title:" />
+                            <p:inputText id="title" value="#{projectUpdaterBean.title}" required="true"/>
+                            <p:outputLabel for="description" value="Description:" />
+                            <p:inputText id="description" value="#{projectUpdaterBean.description}" required="true"/>
+                            <p:outputLabel for="startDate" value="Start date:" />
+                            <p:inputText id="startDate" value="#{projectUpdaterBean.startDate}" required="true"/>
+                            <p:outputLabel for="endDate" value="End Date" />
+                            <p:inputText id="endDate" value="#{projectUpdaterBean.endDate}" required="true"/>
+                            <p:commandButton value="Add" action="#{projectUpdaterBean.addProject()}" icon="ui-icon-check" update="cvForm:projects" oncomplete="PF('addProjectDialog').hide();"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                
+                <!-- Add education form-->
+                <h:form id="addEducationForm">
+                    <p:dialog header="Add education" widgetVar="addEducationDialog" minHeight="40">
+                        <h:panelGrid id="addEducationPanel" columns="2" cellpadding="5">
+                            <p:outputLabel for="institution" value="Institution:" />
+                            <p:inputText id="institution" value="#{educationUpdaterBean.institution}" required="true"/>
+                            <p:outputLabel for="grade" value="Grade" />
+                            <p:inputText id="grade" value="#{educationUpdaterBean.grade}" required="true"/>
+                            <p:outputLabel for="title" value="Title:" />
+                            <p:inputText id="title" value="#{educationUpdaterBean.title}" required="true"/>
+                            <p:outputLabel for="startDate" value="Start date:" />
+                            <p:inputText id="startDate" value="#{educationUpdaterBean.startDate}" required="true"/>
+                            <p:outputLabel for="endDate" value="End Date" />
+                            <p:inputText id="endDate" value="#{educationUpdaterBean.endDate}" required="true"/>
+                            <p:commandButton value="Add" action="#{educationUpdaterBean.addEducationEntry()}" icon="ui-icon-check" update="cvForm:education" oncomplete="PF('addEducationDialog').hide();"/>
+                        </h:panelGrid>
+                    </p:dialog>
                 </h:form>
                 
                 <!-- Add course form-->

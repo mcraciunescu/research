@@ -5,6 +5,7 @@
  */
 package edu.marius.jobmatcher.web.beans.updaters;
 
+import edu.marius.graph.entity.LanguagesType;
 import edu.marius.jobmatcher.web.util.JsfUtils;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -24,7 +25,12 @@ public class LanguageUpdaterBean {
     }
 
     public void addLanguage() {
-        JsfUtils.getCv().ifPresent(cv -> cv.getLanguages().getLanguage().add(language));
+        JsfUtils.getCv().ifPresent(cv -> {
+            if (cv.getLanguages() == null) {
+                cv.setLanguages(new LanguagesType());
+            }
+            cv.getLanguages().getLanguage().add(language);
+        });
     }
 
     public String getLanguage() {

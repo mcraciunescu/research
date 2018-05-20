@@ -9,56 +9,58 @@
 
     <h:body>
         <ui:composition template="./../WEB-INF/template.xhtml">
-            <ui:define name="content">    
-                <p:panel id="general-panel" header="General details">
-                    <h:panelGrid columns="2" cellpadding="5">
-                        <h:outputText value="Title: "/>
-                        <h:outputText value="#{jobDetailsView.job.title}"/>
+            <ui:define name="content">
+                <div style="margin-left: 5px; margin-top: 5px">
+                    <p:panel id="general-panel" header="General details">
+                        <h:panelGrid columns="2" cellpadding="5">
+                            <h:outputText value="Title: "/>
+                            <h:outputText value="#{jobDetailsView.job.title}"/>
 
-                        <h:outputText value="Company: "/>
-                        <h:outputText value="#{jobDetailsView.job.hiringOrganization.name}"/>                    
+                            <h:outputText value="Company: "/>
+                            <h:outputText value="#{jobDetailsView.job.hiringOrganization.name}"/>                    
 
-                        <h:outputText value="Industry: "/>
-                        <h:outputText value="#{jobDetailsView.job.industry}"/>
+                            <h:outputText value="Industry: "/>
+                            <h:outputText value="#{jobDetailsView.job.industry}"/>
 
-                        <h:outputText value="Date posted: "/>
-                        <h:outputText value="#{jobDetailsView.job.datePosted}"/>                 
+                            <h:outputText value="Date posted: "/>
+                            <h:outputText value="#{jobDetailsView.job.datePosted}"/>                 
 
-                        <h:outputText value="Employment Type: "/>
-                        <h:outputText value="#{jobDetailsView.job.employmentType}"/>
+                            <h:outputText value="Employment Type: "/>
+                            <h:outputText value="#{jobDetailsView.job.employmentType}"/>
 
-                    </h:panelGrid>
-                </p:panel>
-                
-                <p:spacer width="50" height="2" />                
-                <p:panel id="description-panel" header="Description">
-                    <h:outputText escape="false" value="#{jobDetailsView.job.description}"/>
-                </p:panel>
-                
-                <p:spacer width="50" height="2" />
-                <p:panel id="responsibility-panel" header="Responsibilities">
-                    <h:outputText escape="false" value="#{jobDetailsView.job.responsibilities}"/>
-                </p:panel>
-                
-                <p:spacer width="50" height="2" />
-                <p:panel id="skills-panel" header="Desired skills">
-                    <h:outputText escape="false" value="#{jobDetailsView.job.skills}"/>
-                </p:panel>
-                
-                <p:spacer width="50" height="2" />
-                <p:panel id="experience-panel" header="Desired experience">
-                    <h:outputText escape="false" value="#{jobDetailsView.job.experienceRequirements}"/>
-                </p:panel>
-                
-                <p:spacer width="50" height="5" />
-                <p:panel id="education-panel" header="Desired education">
-                    <h:outputText escape="false" value="#{jobDetailsView.job.educationRequirements}"/>
-                </p:panel>
-                
-                <p:spacer width="50" height="5" />
-                <p:panel id="benefits-panel" header="Benefits">
-                    <h:outputText escape="false" value="#{jobDetailsView.job.jobBenefits}"/>
-                </p:panel>
+                        </h:panelGrid>
+                    </p:panel>
+
+                    <p:spacer width="50" height="2" />                
+                    <p:panel id="description-panel" header="Description">
+                        <h:outputText escape="false" value="#{jobDetailsView.job.description}"/>
+                    </p:panel>
+
+                    <p:spacer width="50" height="2" />
+                    <p:panel id="responsibility-panel" header="Responsibilities">
+                        <h:outputText escape="false" value="#{jobDetailsView.job.responsibilities}"/>
+                    </p:panel>
+
+                    <p:spacer width="50" height="2" />
+                    <p:panel id="skills-panel" header="Desired skills">
+                        <h:outputText escape="false" value="#{jobDetailsView.job.skills}"/>
+                    </p:panel>
+
+                    <p:spacer width="50" height="2" />
+                    <p:panel id="experience-panel" header="Desired experience">
+                        <h:outputText escape="false" value="#{jobDetailsView.job.experienceRequirements}"/>
+                    </p:panel>
+
+                    <p:spacer width="50" height="5" />
+                    <p:panel id="education-panel" header="Desired education">
+                        <h:outputText escape="false" value="#{jobDetailsView.job.educationRequirements}"/>
+                    </p:panel>
+
+                    <p:spacer width="50" height="5" />
+                    <p:panel id="benefits-panel" header="Benefits">
+                        <h:outputText escape="false" value="#{jobDetailsView.job.jobBenefits}"/>
+                    </p:panel>
+                </div>
             </ui:define>
         </ui:composition>
     </h:body>

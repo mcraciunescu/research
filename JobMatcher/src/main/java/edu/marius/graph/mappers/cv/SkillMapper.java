@@ -31,6 +31,9 @@ public class SkillMapper {
     }
 
     public SkillsType map(List<Skill> skills) {
+        if (skills == null) {
+            return null;
+        }
         SkillsType skillsType = new SkillsType();
         skills.forEach(skill -> skillsType.getSkill().add(skill.getName()));
         return skillsType;

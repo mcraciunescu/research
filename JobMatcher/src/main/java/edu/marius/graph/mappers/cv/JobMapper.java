@@ -32,7 +32,7 @@ public class JobMapper {
         job.setTitle(jobType.getTitle());
         try {
             job.setStartDate(SDF.get().parse(jobType.getStartDate()));
-            job.setEndDate(SDF.get().parse(jobType.getStartDate()));
+            job.setEndDate(SDF.get().parse(jobType.getEndDate()));
         } catch (ParseException ex) {
             Logger.getLogger(JobMapper.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -45,9 +45,12 @@ public class JobMapper {
         j.setCountry(job.getCountry());
         j.setTitle(job.getTitle());
         j.setIndustry(job.getIndustry());
-        j.setStartDate(SDF.get().format(job.getStartDate()));
-        j.setEndDate(SDF.get().format(job.getEndDate()));
+        if (job.getStartDate() != null) {
+            j.setStartDate(SDF.get().format(job.getStartDate()));
+        }
+        if (job.getEndDate() != null) {
+            j.setEndDate(SDF.get().format(job.getEndDate()));
+        }
         return j;
     }
-
 }

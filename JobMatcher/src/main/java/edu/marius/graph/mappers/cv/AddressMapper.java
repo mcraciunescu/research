@@ -19,17 +19,23 @@ public class AddressMapper {
 
     public Address map(AddressType addressType) {
         Address address = new Address();
+        if (addressType == null) {
+            return address;
+        }
         address.setCity(addressType.getCity());
         address.setState(addressType.getState());
-        address.setZip(addressType.getZip() + "");
+        address.setZip(addressType.getZip());
         return address;
     }
 
     public AddressType map(Address address) {
+        if (address == null) {
+            return null;
+        }
         AddressType a = new AddressType();
         a.setCity(address.getCity());
         a.setState(address.getState());
-        a.setZip(Integer.parseInt(address.getZip()));
+        a.setZip(address.getZip());
         return a;
     }
 }

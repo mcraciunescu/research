@@ -6,6 +6,7 @@
 package edu.marius.jobmatcher.web.beans.updaters;
 
 import edu.marius.graph.entity.ProjectType;
+import edu.marius.graph.entity.ProjectsType;
 import edu.marius.jobmatcher.web.util.JsfUtils;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -28,7 +29,12 @@ public class ProjectUpdaterBean {
     }
 
     public void addProject() {
-        JsfUtils.getCv().ifPresent(cv -> cv.getProjects().getProject().add(newProject()));
+        JsfUtils.getCv().ifPresent(cv -> {
+            if (cv.getProjects() == null) {
+                cv.setProjects(new ProjectsType());
+            }
+            cv.getProjects().getProject().add(newProject());
+        });
     }
 
     private ProjectType newProject() {

@@ -5,6 +5,7 @@
  */
 package edu.marius.jobmatcher.web.beans.updaters;
 
+import edu.marius.graph.entity.SkillsType;
 import edu.marius.jobmatcher.web.util.JsfUtils;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -24,7 +25,12 @@ public class SkillUpdaterBean {
     }
 
     public void addSkill() {
-        JsfUtils.getCv().ifPresent(cv -> cv.getSkills().getSkill().add(skill));
+        JsfUtils.getCv().ifPresent(cv -> {
+            if (cv.getSkills() == null) {
+                cv.setSkills(new SkillsType());
+            }
+            cv.getSkills().getSkill().add(skill);
+        });
         skill = null;
     }
 

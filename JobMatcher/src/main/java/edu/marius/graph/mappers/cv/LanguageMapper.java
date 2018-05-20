@@ -7,6 +7,7 @@ package edu.marius.graph.mappers.cv;
 
 import edu.marius.graph.domain.cv.Language;
 import edu.marius.graph.entity.LanguagesType;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ import org.springframework.transaction.annotation.Transactional;
 public class LanguageMapper {
 
     public List<Language> map(LanguagesType languagesType) {
+        if (languagesType == null) {
+            return Collections.emptyList();
+        }
         return languagesType.getLanguage()
                 .stream()
                 .map(languageType -> new Language(languageType))
@@ -27,6 +31,9 @@ public class LanguageMapper {
     }
 
     public LanguagesType map(List<Language> langs) {
+        if (langs == null) {
+            return null;
+        }
         LanguagesType languagesType = new LanguagesType();
         langs.forEach(language -> languagesType.getLanguage().add(language.getName()));
         return languagesType;
