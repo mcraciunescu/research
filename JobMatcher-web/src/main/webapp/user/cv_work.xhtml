@@ -10,7 +10,7 @@
     <h:body>
         <ui:composition template="./../WEB-INF/template.xhtml">
             <ui:define name="content">                
-                <h:form style="margin-left: 20px">
+                <h:form id="cvForm" style="margin-left: 20px">
                     <!-- Personal information -->
                     <p:panel id="personal" header="Personal information">
                         <h:panelGrid title="Personal details" columns="3" columnClasses="column" cellpadding="5">
@@ -125,17 +125,28 @@
                     <p:dataGrid var="skill" value="#{cv.skills.skill}" columns="1" layout="grid" paginator="false" id="skills" style="text-align:left">
                     <f:facet name="header">Skills</f:facet> 
                     <h:outputText value="#{skill}" />
-                    <p:commandButton title="Delete" icon="ui-icon-close" action="#{updateBean.removeSkill(skill)}" update="skills">
+                    <p:commandButton title="Delete" icon="ui-icon-close" action="#{skillUpdaterBean.removeSkill(skill)}" update="skills">
                         <p:confirm header="Confirmation" message="Do you really want to delete this skill?" icon="ui-icon-alert" />
                     </p:commandButton>
-                    </p:dataGrid>                  
-                    
+                    </p:dataGrid>
+                    <p:commandButton style="position: absolute; left: 2px;" value="Add skill" icon="ui-icon-plusthick" onclick="PF('addSkillDialog').show();"/>
+                                        
                     <p:commandButton value="Save Changes" action="#{updateBean.updateCv(cv, user.id, user.cvId)}" icon="ui-icon-check" />
                 
                     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                         <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
                         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                     </p:confirmDialog>
+                </h:form>
+                
+                <h:form id="addSkillForm">
+                    <p:dialog header="Add skill" widgetVar="addSkillDialog" minHeight="40">
+                        <h:panelGrid id="addSkillPanel" columns="2" cellpadding="5">
+                            <p:outputLabel for="sk" value="Skill:" />
+                            <p:inputText id="sk" value="#{skillUpdaterBean.skill}" required="true"/>
+                            <p:commandButton value="Add" action="#{skillUpdaterBean.addSkill()}" icon="ui-icon-check" update="cvForm:skills" oncomplete="PF('addSkillDialog').hide();"/>
+                        </h:panelGrid>
+                    </p:dialog>
                 </h:form>
             </ui:define>
         </ui:composition>
