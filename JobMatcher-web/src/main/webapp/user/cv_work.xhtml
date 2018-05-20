@@ -91,6 +91,9 @@
                     <p:dataGrid var="education" value="#{cv.education.educationEntry}" columns="1" layout="grid" paginator="false" id="education" style="text-align:left">
                         <f:facet name="header">Education</f:facet>                        
                         <p:panel header="#{education.institution}" style="text-align:left">
+                            <p:commandButton title="Delete" icon="ui-icon-close" action="#{updateBean.removeEducationEntry(education)}" update="education">
+                                <p:confirm header="Confirmation" message="Do you really want to delete this education entry?" icon="ui-icon-alert" />
+                            </p:commandButton>
                             <h:panelGrid columns="1" style="width:100%">
                                 <h:outputText value="#{education.title}, #{education.grade}" />
                                 <h:outputText value="#{job.startDate} - #{job.endDate}" />   
@@ -111,17 +114,28 @@
                     
                     <!-- Languages -->
                     <p:dataGrid var="language" value="#{cv.languages.language}" columns="1" layout="grid" paginator="false" id="languages" style="text-align:left">
-                        <f:facet name="header">Languages</f:facet>                        
-                        <h:outputText value="#{language}" />
+                        <f:facet name="header">Languages</f:facet>                    
+                        <h:outputText value="#{language}    " />
+                        <p:commandButton title="Delete" icon="ui-icon-close" action="#{updateBean.removeLanguage(language)}" update="languages">
+                                <p:confirm header="Confirmation" message="Do you really want to delete this language?" icon="ui-icon-alert" />
+                        </p:commandButton>
                     </p:dataGrid>
                     
                     <!-- Skills -->
                     <p:dataGrid var="skill" value="#{cv.skills.skill}" columns="1" layout="grid" paginator="false" id="skills" style="text-align:left">
-                        <f:facet name="header">Skills</f:facet>                        
-                        <h:outputText value="#{skill}" />
-                    </p:dataGrid>
-                      
+                    <f:facet name="header">Skills</f:facet> 
+                    <h:outputText value="#{skill}" />
+                    <p:commandButton title="Delete" icon="ui-icon-close" action="#{updateBean.removeSkill(skill)}" update="skills">
+                        <p:confirm header="Confirmation" message="Do you really want to delete this skill?" icon="ui-icon-alert" />
+                    </p:commandButton>
+                    </p:dataGrid>                  
+                    
                     <p:commandButton value="Save Changes" action="#{updateBean.updateCv(cv, user.id, user.cvId)}" icon="ui-icon-check" />
+                
+                    <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                        <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+                        <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+                    </p:confirmDialog>
                 </h:form>
             </ui:define>
         </ui:composition>
