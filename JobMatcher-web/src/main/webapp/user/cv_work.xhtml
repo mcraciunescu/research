@@ -129,21 +129,27 @@
                     
                     <!-- Skills -->
                     <p:dataGrid var="skill" value="#{cv.skills.skill}" columns="1" layout="grid" paginator="false" id="skills" style="text-align:left">
-                        <f:facet name="header">Skills</f:facet>
+                        <f:facet name="header">
+                                <span>
+                                    <h:outputText value="Skills"/>
+                                </span>
+                                <span style="float: right">
+                                    <p:commandButton title="Add skill" icon="ui-icon-plusthick" onclick="PF('addSkillDialog').show();" style="opacity: 0.4; width: 20px; height: 20px;"/>
+                                </span>
+                        </f:facet>
                         <div>
                             <span style="float: left">
                                 <h:outputText value="#{skill}"/>
                             </span>
                             <span style="float: right">
-                                <p:commandButton title="Delete" icon="ui-icon-close" action="#{skillUpdaterBean.removeSkill(skill)}" update="skills" style="opacity: 0.4">
+                                <p:commandButton title="Delete" icon="ui-icon-close" action="#{skillUpdaterBean.removeSkill(skill)}" update="skills" style="opacity: 0.4; width: 20px; height: 20px;">
                                     <p:confirm header="Confirmation" message="Do you really want to delete this skill?" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </span>
                         </div>
                     </p:dataGrid>
-                    <p:commandButton style="position: absolute; left: 2px;" value="Add skill" icon="ui-icon-plusthick" onclick="PF('addSkillDialog').show();"/>
-                                        
-                    <p:commandButton value="Save Changes" action="#{updateBean.updateCv(cv, user.id, user.cvId)}" icon="ui-icon-check" />
+                    
+                    <p:commandButton style="top: 5px" value="Save Changes" action="#{updateBean.updateCv(cv, user.id, user.cvId)}" icon="ui-icon-check" />
                 
                     <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
                         <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
