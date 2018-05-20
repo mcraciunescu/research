@@ -6,10 +6,11 @@
 package edu.marius.graph.mappers.cv;
 
 import edu.marius.graph.domain.cv.Cv;
+import edu.marius.graph.entity.CoursesType;
 import edu.marius.graph.entity.CvType;
 import edu.marius.graph.entity.EducationType;
 import edu.marius.graph.entity.ExperienceType;
-import edu.marius.graph.entity.LanguagesType;
+import java.util.ArrayList;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +34,9 @@ public class CvMapper {
 
     @Autowired
     private EducationMapper educationMapper;
+
+    @Autowired
+    private CourseMapper courseMapper;
 
     @Autowired
     private LanguageMapper languageMapper;
@@ -59,6 +63,13 @@ public class CvMapper {
                         .map(educationType -> educationMapper.map(educationType))
                         .collect(Collectors.toList())
         );
+        cv.setCourses(
+                cvType.getCourses()
+                        .getCourse()
+                        .stream()
+                        .map(courseMapper::map)
+                        .collect(Collectors.toList())
+        );
         cv.setLanguages(languageMapper.map(cvType.getLanguages()));
         return cv;
     }
@@ -81,6 +92,11 @@ public class CvMapper {
         cv.getEducationEntries().forEach(ed -> education.getEducationEntry().add(educationMapper.map(ed)));
         cvType.setEducation(education);
 
+        if (cv.getCourses() != null) {
+            CoursesType courses = new CoursesType();
+            cv.getCourses().forEach(c -> courses.getCourse().add(courseMapper.map(c)));
+            cvType.setCourses(courses);
+        }
         cvType.setExperience(experience);
         return cvType;
     }

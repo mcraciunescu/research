@@ -103,24 +103,48 @@
                     
                     <!-- Courses -->
                     <p:dataGrid var="course" value="#{cv.courses.course}" columns="1" layout="grid" paginator="false" id="courses" style="text-align:left">
-                        <f:facet name="header">Courses</f:facet>                        
-                        <p:panel header="#{course.institution}" style="text-align:left">
+                        <f:facet name="header">
+                            <span>
+                                <h:outputText value="Courses"/>
+                            </span>
+                            <span style="float: right">
+                                <p:commandButton title="Add course" icon="ui-icon-plusthick" onclick="PF('addCourseDialog').show();" style="opacity: 0.4; width: 20px; height: 20px;"/>
+                            </span>
+                        </f:facet>                        
+                        <p:panel>
+                            <f:facet name="courseInstitution">
+                                <span>
+                                    <h:outputText value="#{course.institution}" style="float: right"/>
+                                </span>
+                                <span style="float: right">
+                                    <p:commandButton title="Delete" icon="ui-icon-close" action="#{courseUpdaterBean.removeCourse(course)}" update="courses" style="opacity: 0.4; width: 20px; height: 20px;">
+                                            <p:confirm header="Confirmation" message="Do you really want to delete this course?" icon="ui-icon-alert" />
+                                    </p:commandButton>
+                                </span>
+                            </f:facet>
                             <h:panelGrid columns="1" style="width:100%">
-                                <h:outputText value="#{education.title}" />
-                                <h:outputText value="#{job.startDate} - #{job.endDate}" />   
+                                <h:outputText value="#{course.title}" />
+                                <h:outputText value="#{course.startDate} - #{course.endDate}" />   
                             </h:panelGrid>
                         </p:panel>
                     </p:dataGrid>
                     
                     <!-- Languages -->
                     <p:dataGrid var="language" value="#{cv.languages.language}" columns="1" layout="grid" paginator="false" id="languages" style="text-align:left">
-                        <f:facet name="header">Languages</f:facet>
+                        <f:facet name="header">
+                            <span>
+                                <h:outputText value="Languages"/>
+                            </span>
+                            <span style="float: right">
+                                <p:commandButton title="Add language" icon="ui-icon-plusthick" onclick="PF('addLanguageDialog').show();" style="opacity: 0.4; width: 20px; height: 20px;"/>
+                            </span>
+                        </f:facet>
                         <div>
                             <span style="float: left">
                                 <h:outputText value="#{language}" />
                             </span>
                             <span style="float: right">
-                                <p:commandButton title="Delete" icon="ui-icon-close" action="#{updateBean.removeLanguage(language)}" update="languages" style="opacity: 0.4">
+                                <p:commandButton title="Delete" icon="ui-icon-close" action="#{languageUpdaterBean.removeLanguage(language)}" update="languages" style="opacity: 0.4; width: 20px; height: 20px;">
                                         <p:confirm header="Confirmation" message="Do you really want to delete this language?" icon="ui-icon-alert" />
                                 </p:commandButton>
                             </span>
@@ -157,6 +181,35 @@
                     </p:confirmDialog>
                 </h:form>
                 
+                <!-- Add course form-->
+                <h:form id="addCourseForm">
+                    <p:dialog header="Add course" widgetVar="addCourseDialog" minHeight="40">
+                        <h:panelGrid id="addCoursePanel" columns="2" cellpadding="5">
+                            <p:outputLabel for="institution" value="Institution:" />
+                            <p:inputText id="institution" value="#{courseUpdaterBean.institution}" required="true"/>
+                            <p:outputLabel for="title" value="Title:" />
+                            <p:inputText id="title" value="#{courseUpdaterBean.title}" required="true"/>
+                            <p:outputLabel for="startDate" value="Start date:" />
+                            <p:inputText id="startDate" value="#{courseUpdaterBean.startDate}" required="true"/>
+                            <p:outputLabel for="endDate" value="End Date" />
+                            <p:inputText id="endDate" value="#{courseUpdaterBean.endDate}" required="true"/>
+                            <p:commandButton value="Add" action="#{courseUpdaterBean.addCourse()}" icon="ui-icon-check" update="cvForm:courses" oncomplete="PF('addCourseDialog').hide();"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                
+                <!-- Add language form-->
+                <h:form id="addLanguageForm">
+                    <p:dialog header="Add language" widgetVar="addLanguageDialog" minHeight="40">
+                        <h:panelGrid id="addLanguagePanel" columns="2" cellpadding="5">
+                            <p:outputLabel for="lang" value="Language:" />
+                            <p:inputText id="lang" value="#{languageUpdaterBean.language}" required="true"/>
+                            <p:commandButton value="Add" action="#{languageUpdaterBean.addLanguage()}" icon="ui-icon-check" update="cvForm:languages" oncomplete="PF('addLanguageDialog').hide();"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>
+                
+                <!-- Add skill form-->
                 <h:form id="addSkillForm">
                     <p:dialog header="Add skill" widgetVar="addSkillDialog" minHeight="40">
                         <h:panelGrid id="addSkillPanel" columns="2" cellpadding="5">
@@ -166,6 +219,7 @@
                         </h:panelGrid>
                     </p:dialog>
                 </h:form>
+                
             </ui:define>
         </ui:composition>
     </h:body>

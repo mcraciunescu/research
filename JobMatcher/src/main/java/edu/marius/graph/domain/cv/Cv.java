@@ -6,121 +6,133 @@ import java.util.List;
 
 @NodeEntity
 public class Cv {
-  @GraphId
-  private Long id;
 
-  private String firstName;
-  private String lastName;
-  private String contactNo;
-  private String eMail;
+    @GraphId
+    private Long id;
 
-  @Relationship(type = "LIVES")
-  private Address address;
+    private String firstName;
+    private String lastName;
+    private String contactNo;
+    private String eMail;
 
-  @Relationship(type = "WORKED_AT")
-  private List<Job> jobs;
+    @Relationship(type = "LIVES")
+    private Address address;
 
-  @Relationship(type = "LEARNED_AT")
-  private List<EducationEntry> educationEntries;
+    @Relationship(type = "WORKED_AT")
+    private List<Job> jobs;
 
-  @Relationship(type = "KNOWS")
-  private List<Skill> skills;
+    @Relationship(type = "LEARNED_AT")
+    private List<EducationEntry> educationEntries;
 
-  @Relationship(type = "SPEAKS")
-  private List<Language> languages;
+    @Relationship(type = "PARTICIPATED_AT")
+    private List<Course> courses;
 
-  public Cv() {
-  }
+    @Relationship(type = "KNOWS")
+    private List<Skill> skills;
 
-  public Long getId() {
-    return id;
-  }
+    @Relationship(type = "SPEAKS")
+    private List<Language> languages;
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public Cv() {
+    }
 
-  public String getFirstName() {
-    return firstName;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-  public String getLastName() {
-    return lastName;
-  }
+    public String getFirstName() {
+        return firstName;
+    }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-  public String getContactNo() {
-    return contactNo;
-  }
+    public String getLastName() {
+        return lastName;
+    }
 
-  public void setContactNo(String contactNo) {
-    this.contactNo = contactNo;
-  }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-  public String geteMail() {
-    return eMail;
-  }
+    public String getContactNo() {
+        return contactNo;
+    }
 
-  public void seteMail(String eMail) {
-    this.eMail = eMail;
-  }
+    public void setContactNo(String contactNo) {
+        this.contactNo = contactNo;
+    }
 
-  public List<Skill> getSkills() {
-    return skills;
-  }
+    public String geteMail() {
+        return eMail;
+    }
 
-  public void setSkills(List<Skill> skills) {
-    this.skills = skills;
-  }
+    public void seteMail(String eMail) {
+        this.eMail = eMail;
+    }
 
-  public List<Job> getJobs() {
-    return jobs;
-  }
+    public List<Skill> getSkills() {
+        return skills;
+    }
 
-  public void setJobs(List<Job> jobs) {
-    this.jobs = jobs;
-  }
+    public void setSkills(List<Skill> skills) {
+        this.skills = skills;
+    }
 
-  public void addJob(Job job) {
-    jobs.add(job);
-  }
+    public List<Job> getJobs() {
+        return jobs;
+    }
 
-  public Address getAddress() {
-    return address;
-  }
+    public void setJobs(List<Job> jobs) {
+        this.jobs = jobs;
+    }
 
-  public void setAddress(Address address) {
-    this.address = address;
-  }
+    public void addJob(Job job) {
+        jobs.add(job);
+    }
 
-  public List<EducationEntry> getEducationEntries() {
-    return educationEntries;
-  }
+    public Address getAddress() {
+        return address;
+    }
 
-  public void setEducationEntries(List<EducationEntry> educationEntries) {
-    this.educationEntries = educationEntries;
-  }
+    public void setAddress(Address address) {
+        this.address = address;
+    }
 
-  public void addEducationEntry(EducationEntry educationEntry) {
-    educationEntries.add(educationEntry);
-  }
+    public List<EducationEntry> getEducationEntries() {
+        return educationEntries;
+    }
 
-  public List<Language> getLanguages() {
-    return languages;
-  }
+    public void setEducationEntries(List<EducationEntry> educationEntries) {
+        this.educationEntries = educationEntries;
+    }
 
-  public void setLanguages(List<Language> language) {
-    this.languages = language;
-  }
+    public void addEducationEntry(EducationEntry educationEntry) {
+        educationEntries.add(educationEntry);
+    }
 
-  public void addLanguage(Language language) {
-    languages.add(language);
-  }
+    public List<Course> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Course> courses) {
+        this.courses = courses;
+    }
+
+    public List<Language> getLanguages() {
+        return languages;
+    }
+
+    public void setLanguages(List<Language> language) {
+        this.languages = language;
+    }
+
+    public void addLanguage(Language language) {
+        languages.add(language);
+    }
 }
