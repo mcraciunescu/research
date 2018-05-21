@@ -12,43 +12,43 @@
             <ui:define name="content">                
                 <h:form id="cvForm" style="margin-left: 5px; margin-top: 5px">
                     <!-- Personal information -->
-                    <p:panel id="personal" header="Personal information" style="min-width: 300px; text-align: center">
-                        <h:panelGrid title="Personal details" columns="3" columnClasses="column" cellpadding="5" style="min-width: 300px">
+                    <p:panel id="personal" header="Personal information" style="min-width: 500px; text-align: center">
+                        <h:panelGrid title="Personal details" columns="3" columnClasses="column" cellpadding="5" style="min-width: 500px; text-align: left">
                             <!--first name-->
                             <h:outputLabel for="firstName" value="First Name:" />
                             <p:inplace id="firstName" editor="true">
-                                <p:inputText value="#{cv.firstName}" placeholder="First name..." required="false" label="text" />
+                                <p:inputText value="#{cv.firstName}" required="false" label="text" />
                             </p:inplace>
 
                             <!--last name-->
                             <h:outputLabel for="lastName" value="Last Name:" />
                             <p:inplace id="lastName" editor="true">
-                                <p:inputText value="#{cv.lastName}" placeholder="Last name..." required="false" label="text" />
+                                <p:inputText value="#{cv.lastName}" required="false" label="text" />
                             </p:inplace>
 
                             <!--contact no-->
                             <h:outputLabel for="contactNo" value="Phone:" />
                             <p:inplace id="contactNo" editor="true">
-                                <p:inputText value="#{cv.contactNo}" placeholder="Contact no..." required="false" label="text" />
+                                <p:inputText value="#{cv.contactNo}" required="false" label="text" />
                             </p:inplace>
 
                             <!--email-->
                             <h:outputLabel for="email" value="E-mail:" />
                             <p:inplace id="email" editor="true">
-                                <p:inputText value="#{cv.email}" placeholder="E-mail..." required="false" label="text" />
+                                <p:inputText value="#{cv.email}" required="false" label="text" />
                             </p:inplace>
                         </h:panelGrid>
                     </p:panel>
                     
                     <!-- Address -->
+                    <p:spacer width="50" height="5px" />
                     <p:panel id="address" header="Address" style="min-width: 300px; text-align: center">
-                        <h:panelGrid title="Address" columns="3" cellpadding="5" style="min-width: 300px">
+                        <h:panelGrid title="Address" columns="3" cellpadding="5" style="min-width: 300px; text-align: left">
                             <!--city-->
                             <h:outputLabel value="City:" />
                             <p:inplace id="city" editor="true">
                                 <p:inputText id="cityText" value="#{cv.address.city}" required="true" label="text" />
                             </p:inplace>
-                            <p:watermark for="cityText" value="City..." id="cityWatermark" />                            
 
                             <!--state-->
                             <h:outputLabel for="state" value="State:" />
@@ -65,6 +65,7 @@
                     </p:panel>
                     
                      <!-- Professional experience -->
+                    <p:spacer width="50" height="5px" />
                     <p:dataGrid var="job" value="#{cv.experience.job}" columns="1" layout="grid" paginator="false" id="experience" style="min-width: 300px" >
                         <f:facet name="header">
                             <span>
@@ -97,7 +98,8 @@
                     </p:dataGrid>
                      
                      <!-- Projects -->
-                     <p:dataGrid var="project" value="#{cv.projects.project}" columns="1" layout="grid" paginator="false" id="projects" style="text-align:left">
+                    <p:spacer width="50" height="5px" />
+                    <p:dataGrid var="project" value="#{cv.projects.project}" columns="1" layout="grid" paginator="false" id="projects" style="text-align:left">
                         <f:facet name="header">
                             <span>
                                 <h:outputText value="Projects"/>
@@ -126,6 +128,7 @@
                     </p:dataGrid>
                    
                     <!-- Education -->
+                    <p:spacer width="50" height="5px" />
                     <p:dataGrid var="education" value="#{cv.education.educationEntry}" columns="1" layout="grid" paginator="false" id="education" style="text-align:left">
                         <f:facet name="header">
                             <span>
@@ -155,6 +158,7 @@
                     </p:dataGrid>
                     
                     <!-- Courses -->
+                    <p:spacer width="50" height="5px" />
                     <p:dataGrid var="course" value="#{cv.courses.course}" columns="1" layout="grid" paginator="false" id="courses" style="text-align:left">
                         <f:facet name="header">
                             <span>
@@ -184,6 +188,7 @@
                     </p:dataGrid>
                     
                     <!-- Languages -->
+                    <p:spacer width="50" height="5px" />
                     <p:dataGrid var="language" value="#{cv.languages.language}" columns="1" layout="grid" paginator="false" id="languages" style="text-align:left">
                         <f:facet name="header">
                             <span>
@@ -206,6 +211,7 @@
                     </p:dataGrid>
                     
                     <!-- Skills -->
+                    <p:spacer width="50" height="5px" />
                     <p:dataGrid var="skill" value="#{cv.skills.skill}" columns="1" layout="grid" paginator="false" id="skills" style="text-align:left">
                         <f:facet name="header">
                                 <span>

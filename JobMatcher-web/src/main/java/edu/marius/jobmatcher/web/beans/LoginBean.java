@@ -5,6 +5,15 @@
  */
 package edu.marius.jobmatcher.web.beans;
 
+import edu.marius.graph.entity.AddressType;
+import edu.marius.graph.entity.CoursesType;
+import edu.marius.graph.entity.CvType;
+import edu.marius.graph.entity.EducationEntryType;
+import edu.marius.graph.entity.EducationType;
+import edu.marius.graph.entity.ExperienceType;
+import edu.marius.graph.entity.LanguagesType;
+import edu.marius.graph.entity.ProjectsType;
+import edu.marius.graph.entity.SkillsType;
 import edu.marius.graph.entity.UserType;
 import edu.marius.jobmatcher.web.service.CvService;
 import edu.marius.jobmatcher.web.service.UserService;
@@ -39,7 +48,9 @@ public class LoginBean {
         if (user != null) {
             HttpSession session = JsfUtils.getSession();
             session.setAttribute("user", user);
-            session.setAttribute("cv", cvService.getCv(user.getCvId()));
+            CvType cv = cvService.getCv(user.getCvId());
+            ensureCvFields(cv);
+            session.setAttribute("cv", cv);
             return "user/cv.xhtml";
         } else {
             //JSFUtil.addMessage(FacesMessage.SEVERITY_ERROR, "Error!", "Wrong credentials");
@@ -62,5 +73,29 @@ public class LoginBean {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    private void ensureCvFields(CvType cv) {
+        if (cv.getAddress() == null) {
+            cv.setAddress(new AddressType());
+        }
+//        if (cv.getCourses() == null) {
+//            cv.setCourses(new CoursesType());
+//        }
+//        if (cv.getEducation() == null) {
+//            cv.setEducation(new EducationType());
+//        }
+//        if (cv.getExperience() == null) {
+//            cv.setExperience(new ExperienceType());
+//        }
+//        if (cv.getLanguages() == null) {
+//            cv.setLanguages(new LanguagesType());
+//        }
+//        if (cv.getSkills() == null) {
+//            cv.setSkills(new SkillsType());
+//        }
+//        if (cv.getProjects() == null) {
+//            cv.setProjects(new ProjectsType());
+//        }
     }
 }
