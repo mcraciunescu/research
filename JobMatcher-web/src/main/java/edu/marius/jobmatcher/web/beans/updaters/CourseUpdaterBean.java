@@ -7,7 +7,9 @@ package edu.marius.jobmatcher.web.beans.updaters;
 
 import edu.marius.graph.entity.CourseType;
 import edu.marius.graph.entity.CoursesType;
+import static edu.marius.jobmatcher.web.util.DateFormatter.format;
 import edu.marius.jobmatcher.web.util.JsfUtils;
+import java.util.Date;
 import java.util.Optional;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
@@ -22,8 +24,8 @@ public class CourseUpdaterBean {
 
     private String institution;
     private String title;
-    private String startDate;
-    private String endDate;
+    private Date startDate;
+    private Date endDate;
 
     public void removeCourse(CourseType course) {
         JsfUtils.getCv().ifPresent(cv -> cv.getCourses().getCourse().remove(course));
@@ -40,8 +42,8 @@ public class CourseUpdaterBean {
 
     private CourseType newCourse() {
         CourseType course = new CourseType();
-        course.setEndDate(endDate);
-        course.setStartDate(startDate);
+        course.setEndDate(format(endDate));
+        course.setStartDate(format(startDate));
         course.setInstitution(institution);
         course.setTitle(title);
         return course;
@@ -63,19 +65,19 @@ public class CourseUpdaterBean {
         this.title = title;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 

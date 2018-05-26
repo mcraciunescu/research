@@ -3,7 +3,8 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"> 
 
         
 
@@ -11,13 +12,15 @@
         <ui:composition template="./../WEB-INF/template.xhtml">
             <ui:define name="content">                
                 <h:form id="cvForm" style="margin-left: 5px; margin-top: 5px">
+                    <p:messages autoUpdate="true" closable="true"/>
                     <!-- Personal information -->
                     <p:panel id="personal" header="Personal information" style="min-width: 500px; text-align: center">
                         <h:panelGrid title="Personal details" columns="3" columnClasses="column" cellpadding="5" style="min-width: 500px; text-align: left">
                             <!--first name-->
                             <h:outputLabel for="firstName" value="First Name:" />
                             <p:inplace id="firstName" editor="true">
-                                <p:inputText value="#{cv.firstName}" required="false" label="text" />
+                                <p:inputText id="fNameInput" value="#{cv.firstName}" required="false" label="text" />
+                                <p:watermark for="fNameInput" value="Enter first name.." id="fNameWatermark" />
                             </p:inplace>
 
                             <!--last name-->
@@ -244,19 +247,29 @@
                 <!-- Add job form-->
                 <h:form id="addJobForm">
                     <p:dialog header="Add a job" widgetVar="addJobDialog" minHeight="40">
-                        <h:panelGrid id="addJobPanel" columns="2" cellpadding="5">
+                        <h:panelGrid id="addJobPanel" columns="3" cellpadding="5">
                             <p:outputLabel for="title" value="Title:" />
                             <p:inputText id="title" value="#{jobUpdaterBean.title}" required="true"/>
+                            <p:message for="title" />
                             <p:outputLabel for="company" value="Company:" />
                             <p:inputText id="company" value="#{jobUpdaterBean.company}" required="true"/>
+                            <p:message for="company" />
                             <p:outputLabel for="industry" value="Industry:" />
                             <p:inputText id="industry" value="#{jobUpdaterBean.industry}" required="true"/>
+                            <p:message for="industry" />
                             <p:outputLabel for="country" value="Country:" />
                             <p:inputText id="country" value="#{jobUpdaterBean.country}" required="true"/>
+                            <p:message for="country" />
                             <p:outputLabel for="startDate" value="Start date:" />
-                            <p:inputText id="startDate" value="#{jobUpdaterBean.startDate}" required="true"/>
+                            <p:inputText id="startDate" value="#{jobUpdaterBean.startDate}" required="true">
+                                <f:convertDateTime pattern="dd.MM.yyyy" />
+                            </p:inputText>  
+                            <p:message for="startDate" />
                             <p:outputLabel for="endDate" value="End Date" />
-                            <p:inputText id="endDate" value="#{jobUpdaterBean.endDate}" required="true"/>
+                            <p:inputText id="endDate" value="#{jobUpdaterBean.endDate}" required="true">
+                                <f:convertDateTime pattern="dd.MM.yyyy" />
+                            </p:inputText>
+                            <p:message for="endDate" />
                             <p:commandButton value="Add" action="#{jobUpdaterBean.addJob()}" icon="ui-icon-check" update="cvForm:experience" oncomplete="PF('addJobDialog').hide();"/>
                         </h:panelGrid>
                     </p:dialog>
@@ -265,15 +278,23 @@
                 <!-- Add project form-->
                 <h:form id="addProjectForm">
                     <p:dialog header="Add project" widgetVar="addProjectDialog" minHeight="40">
-                        <h:panelGrid id="addProjectPanel" columns="2" cellpadding="5">
+                        <h:panelGrid id="addProjectPanel" columns="3" cellpadding="5">
                             <p:outputLabel for="title" value="Title:" />
                             <p:inputText id="title" value="#{projectUpdaterBean.title}" required="true"/>
+                            <p:message for="title" />
                             <p:outputLabel for="description" value="Description:" />
                             <p:inputText id="description" value="#{projectUpdaterBean.description}" required="true"/>
+                            <p:message for="description" />
                             <p:outputLabel for="startDate" value="Start date:" />
-                            <p:inputText id="startDate" value="#{projectUpdaterBean.startDate}" required="true"/>
+                            <p:inputText id="startDate" value="#{projectUpdaterBean.startDate}" required="true">
+                                <f:convertDateTime pattern="dd.MM.yyyy" />
+                            </p:inputText>
+                            <p:message for="startDate" />
                             <p:outputLabel for="endDate" value="End Date" />
-                            <p:inputText id="endDate" value="#{projectUpdaterBean.endDate}" required="true"/>
+                            <p:inputText id="endDate" value="#{projectUpdaterBean.endDate}" required="true">
+                                <f:convertDateTime pattern="dd.MM.yyyy" />
+                            </p:inputText>
+                            <p:message for="endDate" />
                             <p:commandButton value="Add" action="#{projectUpdaterBean.addProject()}" icon="ui-icon-check" update="cvForm:projects" oncomplete="PF('addProjectDialog').hide();"/>
                         </h:panelGrid>
                     </p:dialog>
@@ -282,17 +303,26 @@
                 <!-- Add education form-->
                 <h:form id="addEducationForm">
                     <p:dialog header="Add education" widgetVar="addEducationDialog" minHeight="40">
-                        <h:panelGrid id="addEducationPanel" columns="2" cellpadding="5">
+                        <h:panelGrid id="addEducationPanel" columns="3" cellpadding="5">
                             <p:outputLabel for="institution" value="Institution:" />
                             <p:inputText id="institution" value="#{educationUpdaterBean.institution}" required="true"/>
+                            <p:message for="institution" />
                             <p:outputLabel for="grade" value="Grade" />
                             <p:inputText id="grade" value="#{educationUpdaterBean.grade}" required="true"/>
+                            <p:message for="grade" />
                             <p:outputLabel for="title" value="Title:" />
                             <p:inputText id="title" value="#{educationUpdaterBean.title}" required="true"/>
+                            <p:message for="title" />
                             <p:outputLabel for="startDate" value="Start date:" />
-                            <p:inputText id="startDate" value="#{educationUpdaterBean.startDate}" required="true"/>
+                            <p:inputText id="startDate" value="#{educationUpdaterBean.startDate}" required="true">
+                                <f:convertDateTime pattern="dd.MM.yyyy" />
+                            </p:inputText>
+                            <p:message for="startDate" />
                             <p:outputLabel for="endDate" value="End Date" />
-                            <p:inputText id="endDate" value="#{educationUpdaterBean.endDate}" required="true"/>
+                            <p:inputText id="endDate" value="#{educationUpdaterBean.endDate}" required="true">
+                                <f:convertDateTime pattern="dd.MM.yyyy" />
+                            </p:inputText>
+                            <p:message for="endDate" />
                             <p:commandButton value="Add" action="#{educationUpdaterBean.addEducationEntry()}" icon="ui-icon-check" update="cvForm:education" oncomplete="PF('addEducationDialog').hide();"/>
                         </h:panelGrid>
                     </p:dialog>
@@ -301,15 +331,23 @@
                 <!-- Add course form-->
                 <h:form id="addCourseForm">
                     <p:dialog header="Add course" widgetVar="addCourseDialog" minHeight="40">
-                        <h:panelGrid id="addCoursePanel" columns="2" cellpadding="5">
+                        <h:panelGrid id="addCoursePanel" columns="3" cellpadding="5">
                             <p:outputLabel for="institution" value="Institution:" />
                             <p:inputText id="institution" value="#{courseUpdaterBean.institution}" required="true"/>
+                            <p:message for="institution" />
                             <p:outputLabel for="title" value="Title:" />
                             <p:inputText id="title" value="#{courseUpdaterBean.title}" required="true"/>
+                            <p:message for="title" />
                             <p:outputLabel for="startDate" value="Start date:" />
-                            <p:inputText id="startDate" value="#{courseUpdaterBean.startDate}" required="true"/>
+                            <p:inputText id="startDate" value="#{courseUpdaterBean.startDate}" required="true">
+                                <f:convertDateTime pattern="dd.MM.yyyy" />
+                            </p:inputText>
+                            <p:message for="startDate" />
                             <p:outputLabel for="endDate" value="End Date" />
-                            <p:inputText id="endDate" value="#{courseUpdaterBean.endDate}" required="true"/>
+                            <p:inputText id="endDate" value="#{courseUpdaterBean.endDate}" required="true">
+                                <f:convertDateTime pattern="dd.MM.yyyy" />
+                            </p:inputText>
+                            <p:message for="endDate" />
                             <p:commandButton value="Add" action="#{courseUpdaterBean.addCourse()}" icon="ui-icon-check" update="cvForm:courses" oncomplete="PF('addCourseDialog').hide();"/>
                         </h:panelGrid>
                     </p:dialog>

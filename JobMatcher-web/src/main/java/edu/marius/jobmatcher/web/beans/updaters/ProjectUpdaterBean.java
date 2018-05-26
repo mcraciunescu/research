@@ -7,7 +7,9 @@ package edu.marius.jobmatcher.web.beans.updaters;
 
 import edu.marius.graph.entity.ProjectType;
 import edu.marius.graph.entity.ProjectsType;
+import static edu.marius.jobmatcher.web.util.DateFormatter.format;
 import edu.marius.jobmatcher.web.util.JsfUtils;
+import java.util.Date;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 
@@ -21,8 +23,8 @@ public class ProjectUpdaterBean {
 
     private String title;
     private String description;
-    private String startDate;
-    private String endDate;
+    private Date startDate;
+    private Date endDate;
 
     public void removeProject(ProjectType project) {
         JsfUtils.getCv().ifPresent(cv -> cv.getProjects().getProject().remove(project));
@@ -41,8 +43,8 @@ public class ProjectUpdaterBean {
         ProjectType p = new ProjectType();
         p.setDescription(description);
         p.setTitle(title);
-        p.setStartDate(startDate);
-        p.setEndDate(endDate);
+        p.setStartDate(format(startDate));
+        p.setEndDate(format(endDate));
         return p;
     }
 
@@ -62,19 +64,19 @@ public class ProjectUpdaterBean {
         this.description = description;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 
