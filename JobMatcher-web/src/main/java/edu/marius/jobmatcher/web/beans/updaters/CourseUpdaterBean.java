@@ -10,7 +10,6 @@ import edu.marius.graph.entity.CoursesType;
 import static edu.marius.jobmatcher.web.util.DateFormatter.format;
 import edu.marius.jobmatcher.web.util.JsfUtils;
 import java.util.Date;
-import java.util.Optional;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Named;
 

@@ -13,60 +13,47 @@
             <ui:define name="content">                
                 <h:form id="cvForm" style="margin-left: 5px; margin-top: 5px">
                     <p:messages autoUpdate="true" closable="true"/>
-                    <!-- Personal information -->
-                    <p:panel id="personal" header="Personal information" style="min-width: 500px; text-align: center">
-                        <h:panelGrid title="Personal details" columns="3" columnClasses="column" cellpadding="5" style="min-width: 500px; text-align: left">
-                            <!--first name-->
-                            <h:outputLabel for="firstName" value="First Name:" />
-                            <p:inplace id="firstName" editor="true">
-                                <p:inputText id="fNameInput" value="#{cv.firstName}" required="false" label="text" />
-                                <p:watermark for="fNameInput" value="Enter first name.." id="fNameWatermark" />
-                            </p:inplace>
-
-                            <!--last name-->
-                            <h:outputLabel for="lastName" value="Last Name:" />
-                            <p:inplace id="lastName" editor="true">
-                                <p:inputText value="#{cv.lastName}" required="false" label="text" />
-                            </p:inplace>
-
-                            <!--contact no-->
-                            <h:outputLabel for="contactNo" value="Phone:" />
-                            <p:inplace id="contactNo" editor="true">
-                                <p:inputText value="#{cv.contactNo}" required="false" label="text" />
-                            </p:inplace>
-
+                    <!-- Personal information -->                    
+                    <p:panel id="personalInfo" style="min-width: 500px; text-align: center">
+                        <f:facet name="header">
+                            <span>
+                                <h:outputText value="Personal Information"/>
+                            </span>
+                            <span style="float: right">
+                                <p:commandButton title="Edit" icon="ui-icon-pencil" onclick="PF('editPersonalInfoDialog').show();" style="opacity: 0.4; width: 20px; height: 20px;"/>
+                            </span>
+                        </f:facet> 
+                        <h:panelGrid title="Address" columns="3" cellpadding="5" style="min-width: 500px; text-align: left">
+                            <!--firstName-->
+                            <h:outputLabel value="First name:" />
+                            <h:outputText id="firstName" value="#{cv.firstName}"/>
+                            
+                            <!--lastName-->
+                            <h:outputLabel value="Last name:" />
+                            <h:outputText id="lastName" value="#{cv.lastName}"/>
+                            
+                            <!--contactNo-->
+                            <h:outputLabel value="Contact:" />
+                            <h:outputText id="contactNo" value="#{cv.contactNo}"/>
+                            
                             <!--email-->
-                            <h:outputLabel for="email" value="E-mail:" />
-                            <p:inplace id="email" editor="true">
-                                <p:inputText value="#{cv.email}" required="false" label="text" />
-                            </p:inplace>
-                        </h:panelGrid>
-                    </p:panel>
-                    
-                    <!-- Address -->
-                    <p:spacer width="50" height="5px" />
-                    <p:panel id="address" header="Address" style="min-width: 300px; text-align: center">
-                        <h:panelGrid title="Address" columns="3" cellpadding="5" style="min-width: 300px; text-align: left">
+                            <h:outputLabel value="E-mail:" />
+                            <h:outputText id="email" value="#{cv.email}"/>
+                            
                             <!--city-->
                             <h:outputLabel value="City:" />
-                            <p:inplace id="city" editor="true">
-                                <p:inputText id="cityText" value="#{cv.address.city}" required="true" label="text" />
-                            </p:inplace>
+                            <h:outputText id="cityText" value="#{cv.address.city}"/>
 
                             <!--state-->
                             <h:outputLabel for="state" value="State:" />
-                            <p:inplace id="state" editor="true">
-                                <p:inputText id="stateText" value="#{cv.address.state}" required="true" label="text" />
-                            </p:inplace>
+                            <h:outputText  id="stateText" value="#{cv.address.state}"/>
                             
                             <!--zip-->
                             <h:outputLabel for="zip" value="Zip:" />
-                            <p:inplace id="zip" editor="true">
-                                <p:inputText  id="zipText" value="#{cv.address.zip}" required="true" label="text" />
-                            </p:inplace>
+                            <h:outputText id="zipText" value="#{cv.address.zip}"/>
                         </h:panelGrid>
                     </p:panel>
-                    
+                                      
                      <!-- Professional experience -->
                     <p:spacer width="50" height="5px" />
                     <p:dataGrid var="job" value="#{cv.experience.job}" columns="1" layout="grid" paginator="false" id="experience" style="min-width: 300px" >
@@ -243,6 +230,43 @@
                         <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
                     </p:confirmDialog>
                 </h:form>
+                
+                <!-- Edit personal info form-->
+                <h:form id="editPersonalInfoForm">
+                    <p:dialog header="Edit your personal information" widgetVar="editPersonalInfoDialog" minHeight="40">
+                        <h:panelGrid id="editPersonalInfoPanel" columns="3" cellpadding="5">
+                            <p:outputLabel for="firstName" value="First name:" />
+                            <p:inputText id="firstName" value="#{personalInfoUpdaterBean.firstName}" required="true"/>
+                            <p:message for="firstName" />
+                            
+                            <p:outputLabel for="lastName" value="Last name:" />
+                            <p:inputText id="lastName" value="#{personalInfoUpdaterBean.lastName}" required="true"/>
+                            <p:message for="lastName" />
+                            
+                            <p:outputLabel for="contact" value="Contact:" />
+                            <p:inputText id="contact" value="#{personalInfoUpdaterBean.contactNo}" required="true"/>
+                            <p:message for="contact" />
+                            
+                            <p:outputLabel for="email" value="E-mail:" />
+                            <p:inputText id="email" value="#{personalInfoUpdaterBean.email}" required="true"/>
+                            <p:message for="email" />
+                            
+                            <p:outputLabel for="city" value="City:" />
+                            <p:inputText id="city" value="#{personalInfoUpdaterBean.city}" required="true"/>
+                            <p:message for="city" />
+                            
+                            <p:outputLabel for="state" value="State:" />
+                            <p:inputText id="state" value="#{personalInfoUpdaterBean.state}" required="true"/>
+                            <p:message for="state" />
+                           
+                            <p:outputLabel for="zip" value="Zip:" />
+                            <p:inputText id="zip" value="#{personalInfoUpdaterBean.zip}" required="true"/>
+                            <p:message for="zip" />
+                            
+                            <p:commandButton value="Save" action="#{personalInfoUpdaterBean.editPersonalInformation()}" icon="ui-icon-check" update="cvForm:personalInfo" oncomplete="PF('editPersonalInfoDialog').hide();"/>
+                        </h:panelGrid>
+                    </p:dialog>
+                </h:form>                
                 
                 <!-- Add job form-->
                 <h:form id="addJobForm">
