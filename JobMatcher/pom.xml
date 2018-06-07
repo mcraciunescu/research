@@ -3,18 +3,16 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>sample</groupId>
+    <groupId>edu.marius.graph</groupId>
     <artifactId>job-matcher</artifactId>
     <version>1.0-SNAPSHOT</version>
     <name>JobMatcher</name>
 
 
-    <!-- tag::dependencies[] -->
     <properties>
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <start-class>movies.spring.data.neo4j.SampleMovieApplication</start-class>
         <neo4j.version>3.0.1</neo4j.version>
         <spring-data-neo4j.version>4.1.1.RELEASE</spring-data-neo4j.version>
         <spring-data-releasetrain.version>Hopper-SR1</spring-data-releasetrain.version>
@@ -50,9 +48,6 @@
             <scope>compile</scope>
         </dependency>
 
-        <!-- end::dependencies[] -->
-        
-        <!-- Test Dependencies -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>

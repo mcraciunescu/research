@@ -21,14 +21,12 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableNeo4jRepositories(basePackages = "edu.marius.graph.repositories")
 public class MyNeo4jConfiguration extends Neo4jConfiguration {
 
-    //public static final String URL = "http://neo4j:porcarie@localhost:7474";
     public static final String URL = "http://localhost:7474";
 
     @Bean
     public org.neo4j.ogm.config.Configuration getConfiguration() {
         org.neo4j.ogm.config.Configuration config = new org.neo4j.ogm.config.Configuration();
-        config
-                .driverConfiguration()
+        config.driverConfiguration()
                 .setDriverClassName("org.neo4j.ogm.drivers.http.driver.HttpDriver")
                 .setURI(URL);
         return config;
@@ -39,9 +37,6 @@ public class MyNeo4jConfiguration extends Neo4jConfiguration {
         return new SessionFactory(
                 getConfiguration(),
                 new String[]{
-                    //"edu.marius.graph.domain.cv",
-                    //"edu.marius.graph.domain.job",
-                    //"edu.marius.graph.domain.user",
                     "edu.marius.graph.domain"
                 });
     }
